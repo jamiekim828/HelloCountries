@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import About from './pages/About';
 import FavoritePage from './pages/FavoritePage';
 import Home from './pages/Home';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path='/favorite' element={<FavoritePage />}></Route>
         <Route path='/about' element={<About />}></Route>
       </Routes>
+      <Footer />
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -14,6 +15,7 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
 import { AppDispatch, RootState } from '../redux/store';
 import { fetchCountyData } from '../redux/thunk/country';
+import { Country } from '../types/type';
 
 // MUI table function
 function createData(
@@ -64,19 +66,53 @@ export default function CountryList() {
     setPage(0);
   };
 
+  // MUI style
+  const style = { fontFamily: 'nunito', fontWeight: '900', fontSize: '18px' };
+  const contents = {
+    fontFamily: 'nunito',
+    fontWeight: '300',
+    fontSize: '20px',
+  };
+
+  // navigation on click icon
+  const navigate = useNavigate();
+
+  const navigateToCountry = (country: Country) => {
+    navigate(`/${country.name.common}`);
+  };
   return (
-    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-      <TableContainer sx={{ maxHeight: 500 }}>
+    <Paper
+      sx={{
+        width: '92%',
+        overflow: 'hidden',
+        margin: 'auto',
+      }}
+    >
+      <TableContainer sx={{ maxHeight: 450 }}>
         <Table stickyHeader aria-label='sticky table'>
           <TableHead>
             <TableRow>
-              <TableCell align='center'>Flag</TableCell>
-              <TableCell align='center'>Name</TableCell>
-              <TableCell align='center'>Region</TableCell>
-              <TableCell align='center'>Capital</TableCell>
-              <TableCell align='center'>Population</TableCell>
-              <TableCell align='center'>More Info</TableCell>
-              <TableCell align='center'>Favorite</TableCell>
+              <TableCell align='center' sx={style}>
+                Flag
+              </TableCell>
+              <TableCell align='center' sx={style}>
+                Name
+              </TableCell>
+              <TableCell align='center' sx={style}>
+                Region
+              </TableCell>
+              <TableCell align='center' sx={style}>
+                Capital
+              </TableCell>
+              <TableCell align='center' sx={style}>
+                Population
+              </TableCell>
+              <TableCell align='center' sx={style}>
+                More Info
+              </TableCell>
+              <TableCell align='center' sx={style}>
+                Favorite
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -84,7 +120,9 @@ export default function CountryList() {
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => (
                 <TableRow
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                  sx={{
+                    '&:last-child td, &:last-child th': { border: 0 },
+                  }}
                 >
                   <TableCell
                     component='th'
@@ -94,14 +132,25 @@ export default function CountryList() {
                   >
                     {row.flag}
                   </TableCell>
-                  <TableCell align='center'>{row.name.common}</TableCell>
-                  <TableCell align='center'>{row.region}</TableCell>
-                  <TableCell align='center'>{row.capital}</TableCell>
-                  <TableCell align='center'>{row.population}</TableCell>
-                  <TableCell align='center'>
-                    <MoreHorizIcon sx={{ cursor: 'pointer' }} />
+                  <TableCell align='center' sx={contents}>
+                    {row.name.common}
                   </TableCell>
-                  <TableCell align='center'>
+                  <TableCell align='center' sx={contents}>
+                    {row.region}d
+                  </TableCell>
+                  <TableCell align='center' sx={contents}>
+                    {row.capital}
+                  </TableCell>
+                  <TableCell align='center' sx={contents}>
+                    {row.population}
+                  </TableCell>
+                  <TableCell align='center' sx={contents}>
+                    <MoreHorizIcon
+                      sx={{ cursor: 'pointer' }}
+                      // onClick={() => navigateToCountry(row)}
+                    />
+                  </TableCell>
+                  <TableCell align='center' sx={contents}>
                     <FavoriteBorderIcon sx={{ cursor: 'pointer' }} />
                   </TableCell>
                 </TableRow>

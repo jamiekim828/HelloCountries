@@ -3,7 +3,6 @@
 .App {
   text-align: center;
   font-family: nunito;
-  background-color: #606470;
   color: #f7f7f7;
 }
 
@@ -35,4 +34,30 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.search-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.switch {
+  margin-left: 450px;
+  margin-right: 40px;
+}
+
+.footer {
+  background-color: #323643;
+  color: #f7f7f7;
+  font-size: 12px;
+  position: absolute;
+  bottom: 0;
+  width: 100vw;
+}
+
+.link {
+  color: #f7f7f7;
+  text-decoration: none;
+  margin-right: 9px;
 }

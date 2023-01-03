@@ -5,12 +5,14 @@ type InitialStateType = {
   countries: CountryType[];
   country: CountryType[];
   favorite: CountryType[];
+  like: boolean;
 };
 
 const initialState: InitialStateType = {
   countries: [],
   country: [],
   favorite: [],
+  like: false,
 };
 
 const countrySlice = createSlice({
@@ -28,6 +30,9 @@ const countrySlice = createSlice({
     },
     removeFavorite: (state, action) => {
       state.favorite = action.payload;
+    },
+    changeLike: (state, action) => {
+      state.like = !state.like;
     },
   },
 });

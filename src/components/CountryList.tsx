@@ -1,5 +1,4 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 // MUI
@@ -11,13 +10,12 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import TablePagination from '@mui/material/TablePagination';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
 import { AppDispatch, RootState } from '../redux/store';
 import { fetchCountyData } from '../redux/thunk/country';
-import { fetchOneCountry } from '../redux/thunk/country';
 import { actions } from '../redux/slice/country';
+import { CountryType } from '../types/type';
+import CountryRow from './CountryRow';
 
 // MUI table function
 function createData(
@@ -28,7 +26,7 @@ function createData(
   population: number,
   languages: object,
   currencies: { [key: string]: { name: string; symbol: string } },
-  border: string[],
+  borders: string[],
   maps: { googleMaps: string },
   flags: { png: string; svg: string }
 ) {
@@ -40,7 +38,7 @@ function createData(
     population,
     languages,
     currencies,
-    border,
+    borders,
     maps,
     flags,
   };
@@ -51,6 +49,11 @@ export default function CountryList() {
   const countryList = useSelector(
     (state: RootState) => state.country.countries
   );
+  const favoriteCountries = useSelector(
+    (state: RootState) => state.country.favorite
+  );
+
+  // dispatch for action
   const dispatch = useDispatch<AppDispatch>();
 
   // fetch data with useEffect
@@ -74,7 +77,7 @@ export default function CountryList() {
     )
   );
 
-  // MUI pagination
+  // MUI
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -87,6 +90,19 @@ export default function CountryList() {
   ) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
+  };
+
+  const addFavoriteHandler = (favorite: CountryType) => {
+    const hasDuplicate = favoriteCountries.some(
+      (country) =>
+        country.name.common.toLocaleLowerCase() ===
+        favorite.name.common.toLocaleLowerCase()
+    );
+    if (hasDuplicate) {
+      return alert('This country is already added.');
+    } else {
+      return dispatch(actions.addFavorite(favorite));
+    }
   };
 
   // MUI style
@@ -136,51 +152,12 @@ export default function CountryList() {
             {rows
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => (
-                <TableRow
-                  sx={{
-                    '&:last-child td, &:last-child th': { border: 0 },
-                  }}
+                <CountryRow
                   key={row.name.common}
-                >
-                  <TableCell
-                    component='th'
-                    align='center'
-                    scope='row'
-                    sx={{ fontSize: '30px' }}
-                  >
-                    {row.flag}
-                  </TableCell>
-                  <TableCell align='center' sx={contents}>
-                    {row.name.common}
-                  </TableCell>
-                  <TableCell align='center' sx={contents}>
-                    {row.region}d
-                  </TableCell>
-                  <TableCell align='center' sx={contents}>
-                    {row.capital}
-                  </TableCell>
-                  <TableCell align='center' sx={contents}>
-                    {row.population}
-                  </TableCell>
-                  <TableCell align='center' sx={contents}>
-                    <Link to={`/name/${row.name.common}`}>
-                      <MoreHorizIcon
-                        sx={{ cursor: 'pointer' }}
-                        onClick={() => {
-                          dispatch(fetchOneCountry(row.name.common));
-                        }}
-                      />
-                    </Link>
-                  </TableCell>
-                  <TableCell align='center' sx={contents}>
-                    <FavoriteBorderIcon
-                      sx={{ cursor: 'pointer' }}
-                      onClick={() => {
-                        dispatch(actions.addFavorite(row));
-                      }}
-                    />
-                  </TableCell>
-                </TableRow>
+                  country={row}
+                  addFavoriteHandler={addFavoriteHandler}
+                  contents={contents}
+                />
               ))}
           </TableBody>
         </Table>

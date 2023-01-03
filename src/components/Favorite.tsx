@@ -44,6 +44,8 @@ export default function Favorite() {
             sx={{
               p: 2,
               margin: 'auto',
+              marginTop: '1%',
+              marginBottom: '1%',
               maxWidth: 500,
               flexGrow: 1,
               backgroundColor: (theme) =>
@@ -86,7 +88,6 @@ export default function Favorite() {
                       variant='body2'
                       onClick={() => {
                         handleRemove(country.name.common);
-                        console.log(favorite);
                       }}
                     >
                       Remove

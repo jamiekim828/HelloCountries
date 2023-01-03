@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -7,8 +8,12 @@ import IconButton from '@mui/material/IconButton';
 import HomeIcon from '@mui/icons-material/Home';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import InfoIcon from '@mui/icons-material/Info';
+import { RootState } from '../redux/store';
 
 export default function Navbar() {
+  // get favorite state
+  const favorite = useSelector((state: RootState) => state.country.favorite);
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
@@ -60,7 +65,7 @@ export default function Navbar() {
             component={Link}
             to='/favorite'
           >
-            <Badge badgeContent={17} color='error'>
+            <Badge badgeContent={favorite.length} color='error'>
               <FavoriteIcon />
             </Badge>
           </IconButton>

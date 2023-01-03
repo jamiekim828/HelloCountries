@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 // MUI
 import Card from '@mui/material/Card';
@@ -17,6 +16,9 @@ import { CountryType } from '../types/type';
 export default function Country() {
   // select state
   const countryInfo = useSelector((state: RootState) => state.country.country);
+  const favoriteCountries = useSelector(
+    (state: RootState) => state.country.favorite
+  );
 
   // variables
   const country = countryInfo[0];
@@ -25,7 +27,16 @@ export default function Country() {
   const dispatch = useDispatch<AppDispatch>();
 
   const handleFavoriteBtn = (favorite: CountryType) => {
-    dispatch(actions.addFavorite(favorite));
+    const hasDuplicate = favoriteCountries.some(
+      (country) =>
+        country.name.common.toLocaleLowerCase() ===
+        favorite.name.common.toLocaleLowerCase()
+    );
+    if (hasDuplicate) {
+      alert('This country is already added.');
+    } else {
+      dispatch(actions.addFavorite(favorite));
+    }
   };
 
   return (
@@ -64,15 +75,13 @@ export default function Country() {
             {country?.population}
             <br />
             <b>Currency : </b>
-            {/* {money?.name}({money?.symbol}) */}
+
             <br />
             <b>Languages : </b>
-            {/* {lang.map((language) => (
-                <span>{language}</span>
-              ))} */}
+
             <br />
             <b>Border : </b>
-            {}
+
             <br />
             <b>Map : </b>
             <Link to='/'>Click here</Link>

@@ -5,14 +5,12 @@ type InitialStateType = {
   countries: CountryType[];
   country: CountryType[];
   favorite: CountryType[];
-  like: boolean;
 };
 
 const initialState: InitialStateType = {
   countries: [],
   country: [],
   favorite: [],
-  like: false,
 };
 
 const countrySlice = createSlice({
@@ -20,19 +18,28 @@ const countrySlice = createSlice({
   initialState,
   reducers: {
     getCountryList: (state, action) => {
-      state.countries = action.payload;
+      state.countries = action.payload.map((country: CountryType) =>
+        Object.assign({}, country, { like: false })
+      );
     },
     getCountry: (state, action) => {
       state.country = action.payload;
     },
     addFavorite: (state, action) => {
-      state.favorite.push(action.payload);
+      state.favorite.push({ ...action.payload, like: true });
     },
     removeFavorite: (state, action) => {
       state.favorite = action.payload;
     },
     changeLike: (state, action) => {
-      state.like = !state.like;
+      const index = state.countries.findIndex(
+        (country) =>
+          country.name.common.toLowerCase() ===
+          action.payload.name.common.toLowerCase()
+      );
+      if (index !== -1) {
+        state.countries[index].like = true;
+      }
     },
   },
 });

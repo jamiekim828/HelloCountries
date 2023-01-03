@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
@@ -9,24 +9,27 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 
 import { CountryType } from '../types/type';
 import { fetchOneCountry } from '../redux/thunk/country';
-import { AppDispatch, RootState } from '../redux/store';
+import { AppDispatch } from '../redux/store';
+import { actions } from '../redux/slice/country';
 
+// prop type
 type PropType = {
+  countryList: CountryType[];
   country: CountryType;
   addFavoriteHandler: any;
   contents: object;
+  like: boolean;
 };
 
 export default function CountryRow({
+  countryList,
   country,
   addFavoriteHandler,
   contents,
+  like,
 }: PropType) {
   // action dispatch
   const dispatch = useDispatch<AppDispatch>();
-
-  // like state
-  const like = useSelector((state: RootState) => state.country.like);
 
   return (
     <TableRow
@@ -66,16 +69,17 @@ export default function CountryRow({
         </Link>
       </TableCell>
       <TableCell align='center' sx={contents}>
-        {like ? (
-          <FavoriteIcon sx={{ cursor: 'pointer' }} color='error' />
-        ) : (
+        {like === false ? (
           <FavoriteBorderIcon
             sx={{ cursor: 'pointer' }}
             color='error'
             onClick={() => {
               addFavoriteHandler(country);
+              dispatch(actions.changeLike(country));
             }}
           />
+        ) : (
+          <FavoriteIcon sx={{ cursor: 'pointer' }} color='error' />
         )}
       </TableCell>
     </TableRow>

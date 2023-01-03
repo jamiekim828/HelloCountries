@@ -28,7 +28,8 @@ function createData(
   currencies: { [key: string]: { name: string; symbol: string } },
   borders: string[],
   maps: { googleMaps: string },
-  flags: { png: string; svg: string }
+  flags: { png: string; svg: string },
+  like: boolean
 ) {
   return {
     flag,
@@ -41,6 +42,7 @@ function createData(
     borders,
     maps,
     flags,
+    like,
   };
 }
 
@@ -73,7 +75,8 @@ export default function CountryList() {
       country.currencies,
       country.borders,
       country.maps,
-      country.flags
+      country.flags,
+      country.like
     )
   );
 
@@ -153,10 +156,12 @@ export default function CountryList() {
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => (
                 <CountryRow
+                  countryList={countryList}
                   key={row.name.common}
                   country={row}
                   addFavoriteHandler={addFavoriteHandler}
                   contents={contents}
+                  like={row.like}
                 />
               ))}
           </TableBody>

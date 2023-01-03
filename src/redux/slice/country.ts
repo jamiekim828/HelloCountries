@@ -4,11 +4,13 @@ import { CountryType } from '../../types/type';
 type InitialStateType = {
   countries: CountryType[];
   country: CountryType[];
+  favorite: CountryType[];
 };
 
 const initialState: InitialStateType = {
   countries: [],
   country: [],
+  favorite: [],
 };
 
 const countrySlice = createSlice({
@@ -20,6 +22,12 @@ const countrySlice = createSlice({
     },
     getCountry: (state, action) => {
       state.country = action.payload;
+    },
+    addFavorite: (state, action) => {
+      state.favorite.push(action.payload);
+    },
+    removeFavorite: (state, action) => {
+      state.favorite = action.payload;
     },
   },
 });

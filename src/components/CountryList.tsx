@@ -17,6 +17,7 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { AppDispatch, RootState } from '../redux/store';
 import { fetchCountyData } from '../redux/thunk/country';
 import { fetchOneCountry } from '../redux/thunk/country';
+import { actions } from '../redux/slice/country';
 
 // MUI table function
 function createData(
@@ -24,9 +25,25 @@ function createData(
   name: { common: string; official: string },
   region: string,
   capital: string[],
-  population: number
+  population: number,
+  languages: object,
+  currencies: { [key: string]: { name: string; symbol: string } },
+  border: string[],
+  maps: { googleMaps: string },
+  flags: { png: string; svg: string }
 ) {
-  return { flag, name, region, capital, population };
+  return {
+    flag,
+    name,
+    region,
+    capital,
+    population,
+    languages,
+    currencies,
+    border,
+    maps,
+    flags,
+  };
 }
 
 export default function CountryList() {
@@ -41,6 +58,8 @@ export default function CountryList() {
     dispatch(fetchCountyData());
   }, [dispatch]);
 
+  console.log(countryList);
+
   // MUI table rows
   const rows = countryList.map((country) =>
     createData(
@@ -48,7 +67,12 @@ export default function CountryList() {
       country.name,
       country.region,
       country.capital,
-      country.population
+      country.population,
+      country.languages,
+      country.currencies,
+      country.borders,
+      country.maps,
+      country.flags
     )
   );
 
@@ -151,7 +175,12 @@ export default function CountryList() {
                     </Link>
                   </TableCell>
                   <TableCell align='center' sx={contents}>
-                    <FavoriteBorderIcon sx={{ cursor: 'pointer' }} />
+                    <FavoriteBorderIcon
+                      sx={{ cursor: 'pointer' }}
+                      onClick={() => {
+                        dispatch(actions.addFavorite(row));
+                      }}
+                    />
                   </TableCell>
                 </TableRow>
               ))}

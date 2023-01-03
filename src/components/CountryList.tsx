@@ -58,8 +58,6 @@ export default function CountryList() {
     dispatch(fetchCountyData());
   }, [dispatch]);
 
-  console.log(countryList);
-
   // MUI table rows
   const rows = countryList.map((country) =>
     createData(

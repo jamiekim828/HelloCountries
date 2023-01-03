@@ -11,7 +11,8 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 import { AppDispatch, RootState } from '../redux/store';
-import { fetchOneCountry } from '../redux/thunk/country';
+import { actions } from '../redux/slice/country';
+import { CountryType } from '../types/type';
 
 export default function Country() {
   // select state
@@ -20,26 +21,12 @@ export default function Country() {
   // variables
   const country = countryInfo[0];
 
-  // const dispatch = useDispatch<AppDispatch>();
+  // add favorite btn handler
+  const dispatch = useDispatch<AppDispatch>();
 
-  // get country name
-  // const params = useParams();
-  // const paramsName = params.name;
-  // const countryName = paramsName?.toLocaleLowerCase();
-
-  // const money = Object.values(country.currencies)[0];
-  // const lang = Object.values(country.languages);
-
-  // const [isLoading, setIsLoading] = useState<boolean>(true);
-
-  // fetch data by name
-  // useEffect(() => {
-  //   dispatch(fetchOneCountry(countryName));
-  // }, [dispatch, countryName]);
-
-  // if (countryInfo.length > 0) {
-  //   setIsLoading(false);
-  // }
+  const handleFavoriteBtn = (favorite: CountryType) => {
+    dispatch(actions.addFavorite(favorite));
+  };
 
   return (
     <div>
@@ -101,7 +88,9 @@ export default function Country() {
             <Button size='small'>Back</Button>
           </Link>
 
-          <Button size='small'>Add Favorite</Button>
+          <Button size='small' onClick={() => handleFavoriteBtn(country)}>
+            Add Favorite
+          </Button>
         </CardActions>
       </Card>
     </div>

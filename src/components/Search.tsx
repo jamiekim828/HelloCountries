@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -9,14 +10,47 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
-export default function Search() {
-  const [region, setRegion] = useState('');
+import { fetchCountyData } from '../redux/thunk/country';
+import { AppDispatch, RootState } from '../redux/store';
+import { actions } from '../redux/slice/country';
 
+export default function Search() {
+  // get state
+  const countryList = useSelector(
+    (state: RootState) => state.country.countries
+  );
+
+  // set state
+  const [region, setRegion] = useState('');
+  const [userInput, setUserInput] = useState('');
+
+  // region selection handle change
   const handleChange = (event: SelectChangeEvent) => {
     setRegion(event.target.value);
   };
 
-  // button to sort by alphabet
+  // search function on change
+  const dispatch = useDispatch<AppDispatch>();
+  const searchUserInput = (name: string) => {
+    const result = countryList.filter((country) =>
+      country.name.common.toLocaleLowerCase().includes(name.toLocaleLowerCase())
+    );
+    // filtered country list
+    dispatch(actions.getCountryList(result));
+  };
+
+  // search handle change
+  const handleUserInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setUserInput(event.target.value);
+    searchUserInput(userInput);
+  };
+
+  // on delete input fetch data again
+  useEffect(() => {
+    if (userInput === '') {
+      dispatch(fetchCountyData());
+    }
+  }, [dispatch, userInput]);
 
   return (
     <div className='search-div'>
@@ -33,6 +67,8 @@ export default function Search() {
           id='standard-basic'
           label='Search by name'
           variant='standard'
+          value={userInput}
+          onChange={handleUserInput}
         />
       </Box>
       <div className='switch'>

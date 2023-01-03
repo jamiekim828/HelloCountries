@@ -1,7 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 
+// MUI
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -15,7 +16,7 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
 import { AppDispatch, RootState } from '../redux/store';
 import { fetchCountyData } from '../redux/thunk/country';
-import { Country } from '../types/type';
+import { fetchOneCountry } from '../redux/thunk/country';
 
 // MUI table function
 function createData(
@@ -74,12 +75,6 @@ export default function CountryList() {
     fontSize: '20px',
   };
 
-  // navigation on click icon
-  const navigate = useNavigate();
-
-  const navigateToCountry = (country: Country) => {
-    navigate(`/${country.name.common}`);
-  };
   return (
     <Paper
       sx={{
@@ -123,6 +118,7 @@ export default function CountryList() {
                   sx={{
                     '&:last-child td, &:last-child th': { border: 0 },
                   }}
+                  key={row.name.common}
                 >
                   <TableCell
                     component='th'
@@ -145,10 +141,14 @@ export default function CountryList() {
                     {row.population}
                   </TableCell>
                   <TableCell align='center' sx={contents}>
-                    <MoreHorizIcon
-                      sx={{ cursor: 'pointer' }}
-                      // onClick={() => navigateToCountry(row)}
-                    />
+                    <Link to={`/name/${row.name.common}`}>
+                      <MoreHorizIcon
+                        sx={{ cursor: 'pointer' }}
+                        onClick={() => {
+                          dispatch(fetchOneCountry(row.name.common));
+                        }}
+                      />
+                    </Link>
                   </TableCell>
                   <TableCell align='center' sx={contents}>
                     <FavoriteBorderIcon sx={{ cursor: 'pointer' }} />

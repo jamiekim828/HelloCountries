@@ -1,12 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Country } from '../../types/type';
+import { CountryType } from '../../types/type';
 
 type InitialStateType = {
-  countries: Country[];
+  countries: CountryType[];
+  country: CountryType[];
 };
 
 const initialState: InitialStateType = {
   countries: [],
+  country: [],
 };
 
 const countrySlice = createSlice({
@@ -15,6 +17,9 @@ const countrySlice = createSlice({
   reducers: {
     getCountryList: (state, action) => {
       state.countries = action.payload;
+    },
+    getCountry: (state, action) => {
+      state.country = action.payload;
     },
   },
 });

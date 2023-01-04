@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 // MUI
 import Card from '@mui/material/Card';
@@ -19,6 +19,8 @@ export default function Country() {
   const favoriteCountries = useSelector(
     (state: RootState) => state.country.favorite
   );
+  const location = useLocation();
+  const like = location.state.like;
 
   // variables
   const country = countryInfo[0];
@@ -32,7 +34,7 @@ export default function Country() {
         country.name.common.toLocaleLowerCase() ===
         favorite.name.common.toLocaleLowerCase()
     );
-    if (hasDuplicate) {
+    if (hasDuplicate || like === true) {
       alert('This country is already added.');
     } else {
       dispatch(actions.addFavorite(favorite));

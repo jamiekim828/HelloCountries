@@ -39,6 +39,8 @@ const countrySlice = createSlice({
       );
       if (index !== -1) {
         state.countries[index].like = true;
+      } else {
+        state.countries[index].like = false;
       }
     },
   },

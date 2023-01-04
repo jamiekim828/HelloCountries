@@ -55,6 +55,13 @@ export default function CountryList() {
     (state: RootState) => state.country.favorite
   );
 
+  // set state
+  const [favoriteCheck, setFavoriteCheck] = useState<boolean>(false);
+  // get favorite array
+  const favoriteArray = useSelector(
+    (state: RootState) => state.country.favorite
+  );
+  console.log('check the like', countryList[0], countryList[1]);
   // dispatch for action
   const dispatch = useDispatch<AppDispatch>();
 
@@ -80,7 +87,7 @@ export default function CountryList() {
     )
   );
 
-  // MUI
+  // MUI pagenation
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -95,6 +102,15 @@ export default function CountryList() {
     setPage(0);
   };
 
+  // MUI style
+  const style = { fontFamily: 'nunito', fontWeight: '900', fontSize: '18px' };
+  const contents = {
+    fontFamily: 'nunito',
+    fontWeight: '300',
+    fontSize: '20px',
+  };
+
+  // favorite button on click function
   const addFavoriteHandler = (favorite: CountryType) => {
     const hasDuplicate = favoriteCountries.some(
       (country) =>
@@ -108,13 +124,16 @@ export default function CountryList() {
     }
   };
 
-  // MUI style
-  const style = { fontFamily: 'nunito', fontWeight: '900', fontSize: '18px' };
-  const contents = {
-    fontFamily: 'nunito',
-    fontWeight: '300',
-    fontSize: '20px',
-  };
+  // useEffect(() => {
+  //   if (favoriteArray.length > 0) {
+  //     favoriteArray.forEach((f) => {
+  //       const index = countryList.findIndex(
+  //         (c) => c.name.common === f.name.common
+  //       );
+  //       return (countryList[index].like = true);
+  //     });
+  //   }
+  // });
 
   return (
     <Paper
@@ -160,6 +179,8 @@ export default function CountryList() {
                   key={row.name.common}
                   country={row}
                   addFavoriteHandler={addFavoriteHandler}
+                  setFavoriteCheck={setFavoriteCheck}
+                  favoriteCheck={favoriteCheck}
                   contents={contents}
                   like={row.like}
                 />

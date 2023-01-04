@@ -12,6 +12,7 @@ import Typography from '@mui/material/Typography';
 import { AppDispatch, RootState } from '../redux/store';
 import { actions } from '../redux/slice/country';
 import { CountryType } from '../types/type';
+import { useEffect, useState } from 'react';
 
 export default function Country() {
   // select state
@@ -19,14 +20,23 @@ export default function Country() {
   const favoriteCountries = useSelector(
     (state: RootState) => state.country.favorite
   );
+  const [loading, setLoading] = useState<boolean>(true);
   const location = useLocation();
   const like = location.state.like;
 
   // variables
   const country = countryInfo[0];
-  const money = Object.values(country.currencies)[0];
-  const lingua = Object.values(country.languages);
-  const maps = Object.values(country.maps)[0];
+  // const money = Object.values(country.currencies)[0];
+  // const lingua = Object.values(country.languages);
+  // const maps = Object.values(country.maps)[0];
+  // console.log('object exist?', money, lingua, maps);
+
+  // loading
+  useEffect(() => {
+    if (countryInfo.length !== 0) {
+      setLoading(false);
+    }
+  }, [countryInfo.length]);
 
   // add favorite btn handler
   const dispatch = useDispatch<AppDispatch>();
@@ -46,69 +56,79 @@ export default function Country() {
 
   return (
     <div>
-      <Card
-        sx={{
-          minWidth: 275,
-          width: '400px',
-          height: '600px',
-        }}
-      >
-        <CardMedia
-          component='img'
-          height='230'
-          image={`${country?.flags.svg}`}
-          alt={`${country?.name.common}`}
-        />
-        <CardContent>
-          <Typography variant='h5' component='div'>
-            {country?.name.common}
-          </Typography>
-          <Typography sx={{ mb: 3 }} color='text.secondary'>
-            {country?.name.official}
-          </Typography>
-          <Typography
-            variant='body2'
-            sx={{ textAlign: 'left', marginLeft: '23%' }}
-          >
-            <b>Region : </b>
-            {country?.region}
-            <br />
-            <b>Capital : </b>
-            {country?.capital}
-            <br />
-            <b>Population : </b>
-            {country?.population}
-            <br />
-            <b>Currency : </b>
-            {/* {money?.name}({money?.symbol}) */}
-            <br />
-            <b>Languages : </b>
-            {/* {lingua?.map((l) => l + ', ')} */}
-            <br />
-            <b>Border : </b>
-            {/* {country?.borders.map((b) => b + ', ')} */}
-            <br />
-            <b>Map : </b>
-            <a href={`${maps}`} target='_blank' rel='noreferrer'>
-              Click here
-            </a>
-          </Typography>
-        </CardContent>
-        <CardActions
+      {loading && <div> loading... </div>}
+      {!loading && (
+        <Card
           sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
+            minWidth: 275,
+            width: '400px',
+            height: '600px',
           }}
         >
-          <Link to='/'>
-            <Button size='small'>Back</Button>
-          </Link>
+          <CardMedia
+            component='img'
+            height='230'
+            image={`${country?.flags.svg}`}
+            alt={`${country?.name.common}`}
+          />
+          <CardContent>
+            <Typography variant='h5' component='div'>
+              {country?.name.common}
+            </Typography>
+            <Typography sx={{ mb: 3 }} color='text.secondary'>
+              {country?.name.official}
+            </Typography>
+            <Typography
+              variant='body2'
+              sx={{ textAlign: 'left', marginLeft: '23%' }}
+            >
+              <b>Region : </b>
+              {country?.region}
+              <br />
+              <b>Capital : </b>
+              {country?.capital}
+              <br />
+              <b>Population : </b>
+              {country?.population}
+              <br />
+              <b>Currency : </b>
+              {Object.values(country?.currencies)[0]?.name}(
+              {Object.values(country?.currencies)[0]?.symbol})
+              <br />
+              <b>Languages : </b>
+              {Object.values(country?.languages)?.map((l) => l + ', ')}
+              <br />
+              <b>Border : </b>
+              {country?.borders
+                ? country?.borders.map((b) => b + ', ')
+                : 'No borders'}
+              <br />
+              <b>Map : </b>
+              <a
+                href={`${Object.values(country?.maps)[0]}`}
+                target='_blank'
+                rel='noreferrer'
+              >
+                Click here
+              </a>
+            </Typography>
+          </CardContent>
+          <CardActions
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+            }}
+          >
+            <Link to='/'>
+              <Button size='small'>Back</Button>
+            </Link>
 
-          <Button size='small' onClick={() => handleFavoriteBtn(country)}>
-            Add Favorite
-          </Button>
-        </CardActions>
-      </Card>
+            <Button size='small' onClick={() => handleFavoriteBtn(country)}>
+              Add Favorite
+            </Button>
+          </CardActions>
+        </Card>
+      )}
     </div>
   );
 }

@@ -2,12 +2,14 @@ import { createSlice } from '@reduxjs/toolkit';
 import { CountryType } from '../../types/type';
 
 type InitialStateType = {
+  loading: boolean;
   countries: CountryType[];
   country: CountryType[];
   favorite: CountryType[];
 };
 
 const initialState: InitialStateType = {
+  loading: false,
   countries: [],
   country: [],
   favorite: [],

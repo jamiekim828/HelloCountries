@@ -4,7 +4,7 @@ export type CountryType = {
   currencies: { [key: string]: { name: string; symbol: string } };
   flags: { png: string; svg: string };
   flag: string;
-  languages: Object;
+  languages: object;
   name: { common: string; official: string };
   maps: { googleMaps: string };
   population: number;

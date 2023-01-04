@@ -55,19 +55,15 @@ export default function CountryList() {
     (state: RootState) => state.country.favorite
   );
 
-  // set state
-  const [favoriteCheck, setFavoriteCheck] = useState<boolean>(false);
-  // get favorite array
-  const favoriteArray = useSelector(
-    (state: RootState) => state.country.favorite
-  );
-  console.log('check the like', countryList[0], countryList[1]);
   // dispatch for action
   const dispatch = useDispatch<AppDispatch>();
 
   // fetch data with useEffect
   useEffect(() => {
     dispatch(fetchCountyData());
+    // if (countryList.length > 0) {
+    //   dispatch(actions.findFavorite());
+    // }
   }, [dispatch]);
 
   // MUI table rows
@@ -168,8 +164,6 @@ export default function CountryList() {
                   key={row.name.common}
                   country={row}
                   addFavoriteHandler={addFavoriteHandler}
-                  setFavoriteCheck={setFavoriteCheck}
-                  favoriteCheck={favoriteCheck}
                   contents={contents}
                   like={row.like}
                 />

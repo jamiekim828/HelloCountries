@@ -19,8 +19,6 @@ type PropType = {
   addFavoriteHandler: any;
   contents: object;
   like: boolean;
-  favoriteCheck: boolean;
-  setFavoriteCheck: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function CountryRow({
@@ -29,8 +27,6 @@ export default function CountryRow({
   addFavoriteHandler,
   contents,
   like,
-  favoriteCheck,
-  setFavoriteCheck,
 }: PropType) {
   // action dispatch
   const dispatch = useDispatch<AppDispatch>();
@@ -80,7 +76,6 @@ export default function CountryRow({
             onClick={() => {
               addFavoriteHandler(country);
               dispatch(actions.changeLike(country));
-              setFavoriteCheck(true);
             }}
           />
         ) : (
@@ -89,7 +84,6 @@ export default function CountryRow({
             color='error'
             onClick={() => {
               dispatch(actions.changeLike(country));
-              setFavoriteCheck(false);
             }}
           />
         )}

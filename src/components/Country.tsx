@@ -44,8 +44,6 @@ export default function Country() {
     }
   };
 
-  console.log('this', country);
-
   return (
     <div>
       <Card
@@ -82,13 +80,13 @@ export default function Country() {
             {country?.population}
             <br />
             <b>Currency : </b>
-            {money?.name}({money?.symbol})
+            {/* {money?.name}({money?.symbol}) */}
             <br />
             <b>Languages : </b>
-            {lingua?.map((l) => l + ', ')}
+            {/* {lingua?.map((l) => l + ', ')} */}
             <br />
             <b>Border : </b>
-            {country?.borders.map((b) => b + ', ')}
+            {/* {country?.borders.map((b) => b + ', ')} */}
             <br />
             <b>Map : </b>
             <a href={`${maps}`} target='_blank' rel='noreferrer'>

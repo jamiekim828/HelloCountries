@@ -24,6 +24,9 @@ export default function Country() {
 
   // variables
   const country = countryInfo[0];
+  const money = Object.values(country.currencies)[0];
+  const lingua = Object.values(country.languages);
+  const maps = Object.values(country.maps)[0];
 
   // add favorite btn handler
   const dispatch = useDispatch<AppDispatch>();
@@ -40,6 +43,8 @@ export default function Country() {
       dispatch(actions.addFavorite(favorite));
     }
   };
+
+  console.log('this', country);
 
   return (
     <div>
@@ -77,16 +82,18 @@ export default function Country() {
             {country?.population}
             <br />
             <b>Currency : </b>
-
+            {money?.name}({money?.symbol})
             <br />
             <b>Languages : </b>
-
+            {lingua?.map((l) => l + ', ')}
             <br />
             <b>Border : </b>
-
+            {country?.borders.map((b) => b + ', ')}
             <br />
             <b>Map : </b>
-            <Link to='/'>Click here</Link>
+            <a href={`${maps}`} target='_blank' rel='noreferrer'>
+              Click here
+            </a>
           </Typography>
         </CardContent>
         <CardActions

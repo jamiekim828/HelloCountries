@@ -80,7 +80,7 @@ export default function CountryRow({
             onClick={() => {
               addFavoriteHandler(country);
               dispatch(actions.changeLike(country));
-              setFavoriteCheck(!favoriteCheck);
+              setFavoriteCheck(true);
             }}
           />
         ) : (

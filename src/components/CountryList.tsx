@@ -124,17 +124,6 @@ export default function CountryList() {
     }
   };
 
-  // useEffect(() => {
-  //   if (favoriteArray.length > 0) {
-  //     favoriteArray.forEach((f) => {
-  //       const index = countryList.findIndex(
-  //         (c) => c.name.common === f.name.common
-  //       );
-  //       return (countryList[index].like = true);
-  //     });
-  //   }
-  // });
-
   return (
     <Paper
       sx={{

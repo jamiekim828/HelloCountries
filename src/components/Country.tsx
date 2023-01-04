@@ -26,10 +26,6 @@ export default function Country() {
 
   // variables
   const country = countryInfo[0];
-  // const money = Object.values(country.currencies)[0];
-  // const lingua = Object.values(country.languages);
-  // const maps = Object.values(country.maps)[0];
-  // console.log('object exist?', money, lingua, maps);
 
   // loading
   useEffect(() => {

@@ -16,6 +16,9 @@ import { useEffect, useState } from 'react';
 
 export default function Country() {
   // select state
+  const countryList = useSelector(
+    (state: RootState) => state.country.countries
+  );
   const countryInfo = useSelector((state: RootState) => state.country.country);
   const favoriteCountries = useSelector(
     (state: RootState) => state.country.favorite
@@ -48,6 +51,12 @@ export default function Country() {
     } else {
       dispatch(actions.addFavorite(favorite));
     }
+  };
+
+  // border name on click
+  const neighbor = (border: string) => {
+    const countryName = countryList.find((c) => c.cca3 === border)?.name.common;
+    console.log(countryName);
   };
 
   return (
@@ -96,7 +105,17 @@ export default function Country() {
               <br />
               <b>Border : </b>
               {country?.borders
-                ? country?.borders.map((b) => b + ', ')
+                ? country?.borders.map((border, index) => (
+                    <Button
+                      variant='text'
+                      key={index}
+                      onClick={() => {
+                        neighbor(border);
+                      }}
+                    >
+                      {border}
+                    </Button>
+                  ))
                 : 'No borders'}
               <br />
               <b>Map : </b>

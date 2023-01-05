@@ -1,5 +1,4 @@
 import { Routes, Route } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
 
 import './App.css';
 import Navbar from './components/Navbar';

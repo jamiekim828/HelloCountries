@@ -10,26 +10,29 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import { CountryType } from '../types/type';
 import { fetchOneCountry } from '../redux/thunk/country';
 import { AppDispatch } from '../redux/store';
-import { actions } from '../redux/slice/country';
 
 // prop type
 type PropType = {
-  countryList: CountryType[];
   country: CountryType;
   addFavoriteHandler: any;
   contents: object;
   like: boolean;
+  favoriteCountries: CountryType[];
 };
 
 export default function CountryRow({
-  countryList,
   country,
   addFavoriteHandler,
   contents,
   like,
+  favoriteCountries,
 }: PropType) {
   // action dispatch
   const dispatch = useDispatch<AppDispatch>();
+
+  const favorite = favoriteCountries.some(
+    (item) => item.name.common === country.name.common
+  );
 
   return (
     <TableRow
@@ -69,13 +72,12 @@ export default function CountryRow({
         </Link>
       </TableCell>
       <TableCell align='center' sx={contents}>
-        {like === false ? (
+        {!favorite ? (
           <FavoriteBorderIcon
             sx={{ cursor: 'pointer' }}
             color='error'
             onClick={() => {
               addFavoriteHandler(country);
-              dispatch(actions.changeLike(country));
             }}
           />
         ) : (
@@ -83,7 +85,7 @@ export default function CountryRow({
             sx={{ cursor: 'pointer' }}
             color='error'
             onClick={() => {
-              dispatch(actions.changeLike(country));
+              addFavoriteHandler(country);
             }}
           />
         )}

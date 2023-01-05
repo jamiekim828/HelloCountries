@@ -10,7 +10,7 @@ export default function About() {
         '& > :not(style)': {
           m: 1,
           width: 600,
-          height: 260,
+          height: '60%',
           fontSize: '2rem',
           marginTop: '12%',
           marginBottom: '12%',

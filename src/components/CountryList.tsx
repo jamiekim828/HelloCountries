@@ -117,7 +117,7 @@ export default function CountryList() {
         favorite.name.common.toLocaleLowerCase()
     );
     if (hasDuplicate) {
-      return alert('This country is already added.');
+      return dispatch(actions.removeFavorite(favorite.name.common));
     } else {
       return dispatch(actions.addFavorite(favorite));
     }
@@ -163,12 +163,12 @@ export default function CountryList() {
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => (
                 <CountryRow
-                  countryList={countryList}
                   key={row.name.common}
                   country={row}
                   addFavoriteHandler={addFavoriteHandler}
                   contents={contents}
                   like={row.like}
+                  favoriteCountries={favoriteCountries}
                 />
               ))}
           </TableBody>

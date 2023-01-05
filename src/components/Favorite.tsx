@@ -27,14 +27,7 @@ export default function Favorite() {
 
   // remove button function
   const handleRemove = (name: string) => {
-    dispatch(
-      actions.removeFavorite(
-        favorite.filter(
-          (country) =>
-            country.name.common.toLocaleLowerCase() !== name.toLocaleLowerCase()
-        )
-      )
-    );
+    dispatch(actions.removeFavorite(name));
   };
 
   return (
@@ -47,14 +40,17 @@ export default function Favorite() {
             '& > :not(style)': {
               m: 1,
               width: 600,
-              height: 260,
+              height: '60%',
               fontSize: '2rem',
               marginTop: '12%',
               marginBottom: '12%',
             },
           }}
         >
-          <Paper elevation={10} sx={{ paddingTop: '15%' }}>
+          <Paper
+            elevation={10}
+            sx={{ paddingTop: '10%', paddingBottom: '10%' }}
+          >
             There are no favorite countries yet.
           </Paper>
         </Box>

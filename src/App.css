@@ -52,10 +52,9 @@
   background-color: #323643;
   color: #f7f7f7;
   font-size: 12px;
-  position: absolute;
+  position: relative;
   bottom: 0;
   width: 100vw;
-  margin-top: auto;
 }
 
 .link {

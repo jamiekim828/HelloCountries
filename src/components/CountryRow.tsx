@@ -18,6 +18,8 @@ type PropType = {
   contents: object;
   like: boolean;
   favoriteCountries: CountryType[];
+  handleClick: Function;
+  handleFavoriteClose: Function;
 };
 
 export default function CountryRow({
@@ -26,6 +28,8 @@ export default function CountryRow({
   contents,
   like,
   favoriteCountries,
+  handleClick,
+  handleFavoriteClose,
 }: PropType) {
   // action dispatch
   const dispatch = useDispatch<AppDispatch>();
@@ -78,6 +82,7 @@ export default function CountryRow({
             color='error'
             onClick={() => {
               addFavoriteHandler(country);
+              handleClick();
             }}
           />
         ) : (
@@ -86,6 +91,7 @@ export default function CountryRow({
             color='error'
             onClick={() => {
               addFavoriteHandler(country);
+              handleFavoriteClose();
             }}
           />
         )}

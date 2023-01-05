@@ -2,17 +2,17 @@ import { createSlice } from '@reduxjs/toolkit';
 import { CountryType } from '../../types/type';
 
 type InitialStateType = {
-  loading: boolean;
   countries: CountryType[];
   country: CountryType[];
   favorite: CountryType[];
+  showLoading: boolean;
 };
 
 const initialState: InitialStateType = {
-  loading: false,
   countries: [],
   country: [],
   favorite: [],
+  showLoading: false,
 };
 
 const countrySlice = createSlice({
@@ -37,6 +37,9 @@ const countrySlice = createSlice({
           action.payload.toLocaleLowerCase()
       );
       state.favorite = filter;
+    },
+    showLoadingToggle: (state, action) => {
+      state.showLoading = action.payload;
     },
   },
 });

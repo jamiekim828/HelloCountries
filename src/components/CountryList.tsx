@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
+import { Fragment } from 'react';
 
 // MUI
 import Table from '@mui/material/Table';
@@ -10,12 +11,16 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import TablePagination from '@mui/material/TablePagination';
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 import { AppDispatch, RootState } from '../redux/store';
 import { fetchCountyData } from '../redux/thunk/country';
 import { actions } from '../redux/slice/country';
 import { CountryType } from '../types/type';
 import CountryRow from './CountryRow';
+import Loading from './Loading';
 
 // MUI table function
 function createData(
@@ -56,6 +61,7 @@ export default function CountryList() {
   const favoriteCountries = useSelector(
     (state: RootState) => state.country.favorite
   );
+  const loading = useSelector((state: RootState) => state.country.showLoading);
 
   // dispatch for action
   const dispatch = useDispatch<AppDispatch>();
@@ -101,6 +107,67 @@ export default function CountryList() {
     setPage(0);
   };
 
+  // MUI Snackbar
+  const [open, setOpen] = useState<boolean>(false);
+  const [openAlert, SetOpenAlert] = useState<boolean>(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleFavoriteClose = () => {
+    SetOpenAlert(true);
+  };
+
+  const handleClose = (
+    event: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  const handleCloseAlert = (
+    event: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    SetOpenAlert(false);
+  };
+
+  // MUI Snackbar action
+  const action = (
+    <Fragment>
+      <IconButton
+        size='small'
+        aria-label='close'
+        color='primary'
+        onClick={handleClose}
+      >
+        <CloseIcon fontSize='small' />
+      </IconButton>
+    </Fragment>
+  );
+
+  const actionAlert = (
+    <Fragment>
+      <IconButton
+        size='small'
+        aria-label='close'
+        color='primary'
+        onClick={handleCloseAlert}
+      >
+        <CloseIcon fontSize='small' />
+      </IconButton>
+    </Fragment>
+  );
+
   // MUI style
   const style = { fontFamily: 'nunito', fontWeight: '900', fontSize: '18px' };
   const contents = {
@@ -124,65 +191,91 @@ export default function CountryList() {
   };
 
   return (
-    <Paper
-      sx={{
-        width: '92%',
-        overflow: 'hidden',
-        margin: 'auto',
-      }}
-    >
-      <TableContainer sx={{ maxHeight: 450 }}>
-        <Table stickyHeader aria-label='sticky table'>
-          <TableHead>
-            <TableRow>
-              <TableCell align='center' sx={style}>
-                Flag
-              </TableCell>
-              <TableCell align='center' sx={style}>
-                Name
-              </TableCell>
-              <TableCell align='center' sx={style}>
-                Region
-              </TableCell>
-              <TableCell align='center' sx={style}>
-                Capital
-              </TableCell>
-              <TableCell align='center' sx={style}>
-                Population
-              </TableCell>
-              <TableCell align='center' sx={style}>
-                More Info
-              </TableCell>
-              <TableCell align='center' sx={style}>
-                Favorite
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => (
-                <CountryRow
-                  key={row.name.common}
-                  country={row}
-                  addFavoriteHandler={addFavoriteHandler}
-                  contents={contents}
-                  like={row.like}
-                  favoriteCountries={favoriteCountries}
-                />
-              ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[10, 25, 50, 100]}
-        component='div'
-        count={rows.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
-    </Paper>
+    <div>
+      {loading ? (
+        <Loading />
+      ) : (
+        <Paper
+          sx={{
+            width: '92%',
+            overflow: 'hidden',
+            margin: 'auto',
+          }}
+        >
+          <TableContainer sx={{ maxHeight: 450 }}>
+            <Table stickyHeader aria-label='sticky table'>
+              <TableHead>
+                <TableRow>
+                  <TableCell align='center' sx={style}>
+                    Flag
+                  </TableCell>
+                  <TableCell align='center' sx={style}>
+                    Name
+                  </TableCell>
+                  <TableCell align='center' sx={style}>
+                    Region
+                  </TableCell>
+                  <TableCell align='center' sx={style}>
+                    Capital
+                  </TableCell>
+                  <TableCell align='center' sx={style}>
+                    Population
+                  </TableCell>
+                  <TableCell align='center' sx={style}>
+                    More Info
+                  </TableCell>
+                  <TableCell align='center' sx={style}>
+                    Favorite
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {rows
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((row) => (
+                    <CountryRow
+                      key={row.name.common}
+                      country={row}
+                      addFavoriteHandler={addFavoriteHandler}
+                      contents={contents}
+                      like={row.like}
+                      favoriteCountries={favoriteCountries}
+                      handleClick={handleClick}
+                      handleFavoriteClose={handleFavoriteClose}
+                    />
+                  ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[10, 25, 50, 100]}
+            component='div'
+            count={rows.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </Paper>
+      )}
+      <div>
+        <Snackbar
+          open={open}
+          autoHideDuration={5000}
+          onClose={handleClose}
+          message='The country has added successfully'
+          action={action}
+        />
+      </div>
+      <div>
+        <Snackbar
+          open={openAlert}
+          autoHideDuration={5000}
+          onClose={handleCloseAlert}
+          message='The country has removed'
+          action={actionAlert}
+        />
+      </div>
+    </div>
   );
 }

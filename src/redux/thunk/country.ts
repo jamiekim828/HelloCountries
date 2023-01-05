@@ -8,6 +8,10 @@ export function fetchCountyData() {
     const response = await fetch(`${url}/all`);
     const countryData = await response.json();
 
+    if (countryData.length === 0 || countryData == null) {
+      dispatch(actions.showLoadingToggle(true));
+    }
+
     dispatch(actions.getCountryList(countryData));
   };
 }
@@ -16,6 +20,10 @@ export function fetchOneCountry(name: string | undefined) {
   return async (dispatch: AppDispatch) => {
     const response = await fetch(`${url}/name/${name}`);
     const countryDetail = await response.json();
+
+    if (countryDetail.length === 0 || countryDetail == null) {
+      dispatch(actions.showLoadingToggle(true));
+    }
 
     dispatch(actions.getCountry(countryDetail));
   };

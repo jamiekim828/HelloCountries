@@ -1,5 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Fragment } from 'react';
 
 // MUI
 import Card from '@mui/material/Card';
@@ -8,11 +10,13 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 import { AppDispatch, RootState } from '../redux/store';
 import { actions } from '../redux/slice/country';
 import { CountryType } from '../types/type';
-import { useEffect, useState } from 'react';
 
 export default function Country() {
   // select state
@@ -26,6 +30,38 @@ export default function Country() {
   const [loading, setLoading] = useState<boolean>(true);
   const location = useLocation();
   const like = location.state.like;
+
+  // MUI Snackbar
+  const [open, setOpen] = useState<boolean>(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (
+    event: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  // MUI Snackbar action
+  const action = (
+    <Fragment>
+      <IconButton
+        size='small'
+        aria-label='close'
+        color='primary'
+        onClick={handleClose}
+      >
+        <CloseIcon fontSize='small' />
+      </IconButton>
+    </Fragment>
+  );
 
   // variables
   const country = countryInfo[0];
@@ -77,15 +113,26 @@ export default function Country() {
             alt={`${country?.name.common}`}
           />
           <CardContent>
-            <Typography variant='h5' component='div'>
+            <Typography
+              variant='h5'
+              component='div'
+              sx={{ fontFamily: 'nunito' }}
+            >
               {country?.name.common}
             </Typography>
-            <Typography sx={{ mb: 3 }} color='text.secondary'>
+            <Typography
+              sx={{ mb: 3, fontFamily: 'nunito' }}
+              color='text.secondary'
+            >
               {country?.name.official}
             </Typography>
             <Typography
               variant='body2'
-              sx={{ textAlign: 'left', marginLeft: '23%' }}
+              sx={{
+                textAlign: 'left',
+                marginLeft: '23%',
+                fontFamily: 'nunito',
+              }}
             >
               <b>Region : </b>
               {country?.region}
@@ -123,6 +170,7 @@ export default function Country() {
                 href={`${Object.values(country?.maps)[0]}`}
                 target='_blank'
                 rel='noreferrer'
+                style={{ textDecoration: 'none' }}
               >
                 Click here
               </a>
@@ -134,16 +182,34 @@ export default function Country() {
               justifyContent: 'space-between',
             }}
           >
-            <Link to='/'>
-              <Button size='small'>Back</Button>
+            <Link to='/' style={{ textDecoration: 'none' }}>
+              <Button size='small' sx={{ fontFamily: 'nunito' }}>
+                Back
+              </Button>
             </Link>
 
-            <Button size='small' onClick={() => handleFavoriteBtn(country)}>
+            <Button
+              size='small'
+              sx={{ fontFamily: 'nunito' }}
+              onClick={() => {
+                handleFavoriteBtn(country);
+                handleClick();
+              }}
+            >
               Add Favorite
             </Button>
           </CardActions>
         </Card>
       )}
+      <div>
+        <Snackbar
+          open={open}
+          autoHideDuration={5000}
+          onClose={handleClose}
+          message='The country has added successfully'
+          action={action}
+        />
+      </div>
     </div>
   );
 }

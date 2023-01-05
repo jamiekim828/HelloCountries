@@ -22,7 +22,7 @@ export default function Navbar() {
           md: 'flex',
           flexDirection: 'row',
           justifyContent: 'space-between',
-          bgcolor: '#323643',
+          bgcolor: '#3d5fa3',
           alignItems: 'center',
           height: '60px',
         }}

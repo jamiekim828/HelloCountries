@@ -2,7 +2,7 @@ import Favorite from '../components/Favorite';
 
 export default function FavoritePage() {
   return (
-    <div>
+    <div className='container'>
       <Favorite />
     </div>
   );

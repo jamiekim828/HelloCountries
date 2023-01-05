@@ -3,6 +3,7 @@ import Paper from '@mui/material/Paper';
 
 export default function About() {
   return (
+    <div className='container'>
     <Box
       sx={{
         display: 'flex',
@@ -19,5 +20,6 @@ export default function About() {
     >
       <Paper elevation={10} sx={{ paddingTop: '15%' }}></Paper>
     </Box>
+    </div>
   );
 }

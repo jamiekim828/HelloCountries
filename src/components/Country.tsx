@@ -60,14 +60,14 @@ export default function Country() {
   };
 
   return (
-    <div>
+    <div className='container'>
       {loading && <div> loading... </div>}
       {!loading && (
         <Card
           sx={{
             minWidth: 275,
             width: '400px',
-            height: '600px',
+            height: '580px',
           }}
         >
           <CardMedia

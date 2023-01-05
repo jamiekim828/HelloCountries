@@ -3,7 +3,7 @@ import CountryList from '../components/CountryList';
 
 export default function Home() {
   return (
-    <div>
+    <div className='container'>
       <Search />
       <CountryList />
     </div>

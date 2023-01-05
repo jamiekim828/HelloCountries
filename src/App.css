@@ -1,10 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;500;600;700;900&display=swap');
 
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
 .App {
+  position: relative;
   text-align: center;
   font-family: nunito;
   color: #f7f7f7;
   min-height: 100vh;
+}
+
+.container {
+  padding-bottom: 80px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -52,8 +63,9 @@
   background-color: #323643;
   color: #f7f7f7;
   font-size: 12px;
-  position: relative;
+  position: absolute;
   bottom: 0;
+  height: 80px;
   width: 100vw;
 }
 

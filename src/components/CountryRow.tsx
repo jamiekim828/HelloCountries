@@ -16,7 +16,7 @@ type PropType = {
   country: CountryType;
   addFavoriteHandler: any;
   contents: object;
-  like: boolean;
+
   favoriteCountries: CountryType[];
   handleClick: Function;
   handleFavoriteClose: Function;
@@ -26,7 +26,7 @@ export default function CountryRow({
   country,
   addFavoriteHandler,
   contents,
-  like,
+
   favoriteCountries,
   handleClick,
   handleFavoriteClose,
@@ -49,7 +49,7 @@ export default function CountryRow({
         component='th'
         align='center'
         scope='row'
-        sx={{ fontSize: '30px' }}
+        sx={{ fontSize: '48px' }}
       >
         {country.flag}
       </TableCell>
@@ -62,11 +62,11 @@ export default function CountryRow({
       <TableCell align='center' sx={contents}>
         {country.capital}
       </TableCell>
-      <TableCell align='center' sx={contents}>
-        {country.population}
+      <TableCell align='right' sx={contents}>
+        {country.population.toLocaleString('en-US')}
       </TableCell>
       <TableCell align='center' sx={contents}>
-        <Link to={`/name/${country.name.common}`} state={{ like: like }}>
+        <Link to={`/name/${country.name.common}`}>
           <MoreHorizIcon
             sx={{ cursor: 'pointer' }}
             onClick={() => {

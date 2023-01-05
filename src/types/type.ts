@@ -10,5 +10,4 @@ export type CountryType = {
   maps: { googleMaps: string };
   population: number;
   region: string;
-  like: boolean;
 };

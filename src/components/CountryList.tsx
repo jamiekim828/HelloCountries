@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Fragment } from 'react';
 
 // MUI
@@ -14,6 +14,7 @@ import TablePagination from '@mui/material/TablePagination';
 import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import MuiAlert, { AlertProps } from '@mui/material/Alert';
 
 import { AppDispatch, RootState } from '../redux/store';
 import { fetchCountyData } from '../redux/thunk/country';
@@ -34,8 +35,7 @@ function createData(
   currencies: { [key: string]: { name: string; symbol: string } },
   borders: string[],
   maps: { googleMaps: string },
-  flags: { png: string; svg: string },
-  like: boolean
+  flags: { png: string; svg: string }
 ) {
   return {
     flag,
@@ -49,9 +49,15 @@ function createData(
     borders,
     maps,
     flags,
-    like,
   };
 }
+
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+  props,
+  ref
+) {
+  return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />;
+});
 
 export default function CountryList() {
   // select store
@@ -69,9 +75,6 @@ export default function CountryList() {
   // fetch data with useEffect
   useEffect(() => {
     dispatch(fetchCountyData());
-    // if (countryList.length > 0) {
-    //   dispatch(actions.findFavorite());
-    // }
   }, [dispatch]);
 
   // MUI table rows
@@ -87,14 +90,13 @@ export default function CountryList() {
       country.currencies,
       country.borders,
       country.maps,
-      country.flags,
-      country.like
+      country.flags
     )
   );
 
   // MUI pagenation
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rowsPerPage, setRowsPerPage] = useState(50);
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -173,7 +175,7 @@ export default function CountryList() {
   const contents = {
     fontFamily: 'nunito',
     fontWeight: '300',
-    fontSize: '20px',
+    fontSize: '23px',
   };
 
   // favorite button on click function
@@ -238,7 +240,6 @@ export default function CountryList() {
                       country={row}
                       addFavoriteHandler={addFavoriteHandler}
                       contents={contents}
-                      like={row.like}
                       favoriteCountries={favoriteCountries}
                       handleClick={handleClick}
                       handleFavoriteClose={handleFavoriteClose}
@@ -248,7 +249,7 @@ export default function CountryList() {
             </Table>
           </TableContainer>
           <TablePagination
-            rowsPerPageOptions={[10, 25, 50, 100]}
+            rowsPerPageOptions={[50, 100]}
             component='div'
             count={rows.length}
             rowsPerPage={rowsPerPage}
@@ -261,20 +262,34 @@ export default function CountryList() {
       <div>
         <Snackbar
           open={open}
-          autoHideDuration={5000}
+          autoHideDuration={3000}
           onClose={handleClose}
-          message='The country has added successfully'
           action={action}
-        />
+        >
+          <Alert
+            onClose={handleClose}
+            severity='success'
+            sx={{ width: '100%' }}
+          >
+            The country has successfully added to your favorite
+          </Alert>
+        </Snackbar>
       </div>
       <div>
         <Snackbar
           open={openAlert}
-          autoHideDuration={5000}
+          autoHideDuration={3000}
           onClose={handleCloseAlert}
-          message='The country has removed'
           action={actionAlert}
-        />
+        >
+          <Alert
+            onClose={handleCloseAlert}
+            severity='warning'
+            sx={{ width: '100%' }}
+          >
+            The country has removed from your favorite
+          </Alert>
+        </Snackbar>
       </div>
     </div>
   );

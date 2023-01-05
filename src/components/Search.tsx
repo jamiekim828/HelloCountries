@@ -106,7 +106,7 @@ export default function Search() {
               control={<Switch color='primary' checked={checked} />}
               label='Sort A to Z'
               labelPlacement='end'
-              onChange={() => {
+              onClick={() => {
                 handleSort();
                 switchHandler();
               }}

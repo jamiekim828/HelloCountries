@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { Link, useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import { Fragment } from 'react';
 
 // MUI
@@ -13,10 +13,19 @@ import Typography from '@mui/material/Typography';
 import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import MuiAlert, { AlertProps } from '@mui/material/Alert';
 
 import { AppDispatch, RootState } from '../redux/store';
 import { actions } from '../redux/slice/country';
 import { CountryType } from '../types/type';
+
+// MUI Alert
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+  props,
+  ref
+) {
+  return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />;
+});
 
 export default function Country() {
   // select state
@@ -28,8 +37,6 @@ export default function Country() {
     (state: RootState) => state.country.favorite
   );
   const [loading, setLoading] = useState<boolean>(true);
-  const location = useLocation();
-  const like = location.state.like;
 
   // MUI Snackbar
   const [open, setOpen] = useState<boolean>(false);
@@ -83,7 +90,7 @@ export default function Country() {
         favorite.name.common.toLocaleLowerCase()
     );
 
-    if (hasDuplicate || like === true) {
+    if (hasDuplicate) {
       alert('This country is already added.');
     } else {
       dispatch(actions.addFavorite(favorite));
@@ -104,7 +111,7 @@ export default function Country() {
           sx={{
             minWidth: 275,
             width: '400px',
-            height: '580px',
+            height: 'auto',
           }}
         >
           <CardMedia
@@ -117,7 +124,7 @@ export default function Country() {
             <Typography
               variant='h5'
               component='div'
-              sx={{ fontFamily: 'nunito' }}
+              sx={{ fontFamily: 'nunito', fontWeight: '800' }}
             >
               {country?.name.common}
             </Typography>
@@ -131,25 +138,34 @@ export default function Country() {
               variant='body2'
               sx={{
                 textAlign: 'left',
-                marginLeft: '23%',
+                marginLeft: '22%',
                 fontFamily: 'nunito',
+                fontSize: '17px',
               }}
             >
               <b>Region : </b>
               {country?.region}
               <br />
               <b>Capital : </b>
-              {country?.capital}
+              {country?.capital ? country?.capital : 'No capital'}
               <br />
               <b>Population : </b>
               {country?.population}
               <br />
               <b>Currency : </b>
-              {Object.values(country?.currencies)[0]?.name}(
-              {Object.values(country?.currencies)[0]?.symbol})
+              {country?.currencies
+                ? Object.values(country?.currencies)[0]?.name
+                : 'No information'}
+              (
+              {country?.currencies
+                ? Object.values(country?.currencies)[0]?.symbol
+                : '?'}
+              )
               <br />
               <b>Languages : </b>
-              {Object.values(country?.languages)?.map((l) => l + ', ')}
+              {country?.languages
+                ? Object.values(country?.languages)?.map((l) => l + ', ')
+                : 'No information'}
               <br />
               <b>Border : </b>
               {country?.borders
@@ -205,11 +221,18 @@ export default function Country() {
       <div>
         <Snackbar
           open={open}
-          autoHideDuration={5000}
+          autoHideDuration={3000}
           onClose={handleClose}
-          message='The country has added successfully'
           action={action}
-        />
+        >
+          <Alert
+            onClose={handleClose}
+            severity='success'
+            sx={{ width: '100%' }}
+          >
+            The country has successfully added to your favorite
+          </Alert>
+        </Snackbar>
       </div>
     </div>
   );

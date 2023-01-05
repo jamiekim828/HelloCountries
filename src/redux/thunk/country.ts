@@ -3,6 +3,7 @@ import { actions } from '../slice/country';
 
 const url = 'https://restcountries.com/v3.1';
 
+// fetch All countries
 export function fetchCountyData() {
   return async (dispatch: AppDispatch) => {
     const response = await fetch(`${url}/all`);
@@ -16,6 +17,7 @@ export function fetchCountyData() {
   };
 }
 
+// fetch one country by name
 export function fetchOneCountry(name: string | undefined) {
   return async (dispatch: AppDispatch) => {
     const response = await fetch(`${url}/name/${name}`);
@@ -29,6 +31,7 @@ export function fetchOneCountry(name: string | undefined) {
   };
 }
 
+// fetch countries by region
 export function fetchByRegion(name: string | undefined) {
   return async (dispatch: AppDispatch) => {
     const response = await fetch(`${url}/region/${name}`);

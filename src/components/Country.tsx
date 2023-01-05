@@ -15,6 +15,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 
+// file
 import { AppDispatch, RootState } from '../redux/store';
 import { actions } from '../redux/slice/country';
 import { CountryType } from '../types/type';
@@ -36,6 +37,7 @@ export default function Country() {
   const favoriteCountries = useSelector(
     (state: RootState) => state.country.favorite
   );
+  // set state
   const [loading, setLoading] = useState<boolean>(true);
 
   // MUI Snackbar

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-
+// MUI
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Badge from '@mui/material/Badge';
@@ -8,6 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import HomeIcon from '@mui/icons-material/Home';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import InfoIcon from '@mui/icons-material/Info';
+//file
 import { RootState } from '../redux/store';
 
 export default function Navbar() {

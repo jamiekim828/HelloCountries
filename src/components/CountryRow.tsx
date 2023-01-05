@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-
+// MUI
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-
+// file
 import { CountryType } from '../types/type';
 import { fetchOneCountry } from '../redux/thunk/country';
 import { AppDispatch } from '../redux/store';

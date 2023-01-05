@@ -28,3 +28,15 @@ export function fetchOneCountry(name: string | undefined) {
     dispatch(actions.getCountry(countryDetail));
   };
 }
+
+export function fetchByRegion(name: string | undefined) {
+  return async (dispatch: AppDispatch) => {
+    const response = await fetch(`${url}/region/${name}`);
+    const countryByRegion = await response.json();
+
+    if (countryByRegion.length === 0 || countryByRegion == null) {
+      dispatch(actions.showLoadingToggle(true));
+    }
+    dispatch(actions.getCountryList(countryByRegion));
+  };
+}

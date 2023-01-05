@@ -10,7 +10,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
-import { fetchCountyData } from '../redux/thunk/country';
+import { fetchByRegion, fetchCountyData } from '../redux/thunk/country';
 import { AppDispatch, RootState } from '../redux/store';
 import { actions } from '../redux/slice/country';
 
@@ -21,8 +21,14 @@ export default function Search() {
   );
 
   // set state
-  const [region, setRegion] = useState('');
-  const [userInput, setUserInput] = useState('');
+  const [region, setRegion] = useState<string>('');
+  const [userInput, setUserInput] = useState<string>('');
+  const [checked, SetChecked] = useState<boolean>(false);
+
+  // switch
+  const switchHandler = () => {
+    SetChecked(!checked);
+  };
 
   // region selection handle change
   const handleChange = (event: SelectChangeEvent) => {
@@ -43,6 +49,15 @@ export default function Search() {
   const handleUserInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserInput(event.target.value);
     searchUserInput(userInput);
+  };
+
+  // sort by A to Z
+  const handleSort = () => {
+    dispatch(actions.getAlphabeticalOrder(countryList));
+  };
+
+  const handleUndo = () => {
+    dispatch(fetchCountyData());
   };
 
   // on delete input fetch data again
@@ -73,18 +88,39 @@ export default function Search() {
       </Box>
       <div className='switch'>
         <FormControl component='fieldset'>
-          <FormControlLabel
-            value='end'
-            control={<Switch color='primary' />}
-            label='Sort A to Z'
-            labelPlacement='end'
-            sx={{ color: '#606470' }}
-          />
+          {checked ? (
+            <FormControlLabel
+              value='end'
+              control={<Switch color='primary' checked={checked} />}
+              label='Sort A to Z'
+              labelPlacement='end'
+              onChange={() => {
+                handleUndo();
+                switchHandler();
+              }}
+              sx={{ color: '#606470' }}
+            />
+          ) : (
+            <FormControlLabel
+              value='end'
+              control={<Switch color='primary' checked={checked} />}
+              label='Sort A to Z'
+              labelPlacement='end'
+              onChange={() => {
+                handleSort();
+                switchHandler();
+              }}
+              sx={{ color: '#606470' }}
+            />
+          )}
         </FormControl>
       </div>
       <div>
         <FormControl sx={{ m: 1, minWidth: 120 }}>
-          <InputLabel id='demo-simple-select-helper-label'>
+          <InputLabel
+            id='demo-simple-select-helper-label'
+            sx={{ fontFamily: 'nunito' }}
+          >
             By Region
           </InputLabel>
           <Select
@@ -94,15 +130,63 @@ export default function Search() {
             label='Region'
             onChange={handleChange}
           >
-            <MenuItem value=''>
-              <em>None</em>
+            <MenuItem
+              sx={{ fontFamily: 'nunito' }}
+              value=''
+              onClick={() => {
+                dispatch(fetchCountyData());
+              }}
+            >
+              <em>All</em>
             </MenuItem>
-            <MenuItem value={'africa'}>Africa</MenuItem>
-            <MenuItem value={'america'}>Americas</MenuItem>
-            <MenuItem value={'antartic'}>Antartic</MenuItem>
-            <MenuItem value={'asia'}>Asia</MenuItem>
-            <MenuItem value={'europe'}>Europe</MenuItem>
-            <MenuItem value={'oceania'}>Oceania</MenuItem>
+            <MenuItem
+              sx={{ fontFamily: 'nunito' }}
+              onClick={() => {
+                dispatch(fetchByRegion('africa'));
+              }}
+            >
+              Africa
+            </MenuItem>
+            <MenuItem
+              sx={{ fontFamily: 'nunito' }}
+              onClick={() => {
+                dispatch(fetchByRegion('americas'));
+              }}
+            >
+              Americas
+            </MenuItem>
+            <MenuItem
+              sx={{ fontFamily: 'nunito' }}
+              onClick={() => {
+                dispatch(fetchByRegion('antarctic'));
+              }}
+            >
+              Antarctic
+            </MenuItem>
+            <MenuItem
+              sx={{ fontFamily: 'nunito' }}
+              onClick={() => {
+                dispatch(fetchByRegion('asia'));
+              }}
+            >
+              Asia
+            </MenuItem>
+            <MenuItem
+              sx={{ fontFamily: 'nunito' }}
+              onClick={() => {
+                dispatch(fetchByRegion('europe'));
+              }}
+            >
+              Europe
+            </MenuItem>
+            <MenuItem
+              sx={{ fontFamily: 'nunito' }}
+              onClick={() => {
+                dispatch(fetchByRegion('oceania'));
+              }}
+            >
+              Oceania
+            </MenuItem>
           </Select>
         </FormControl>
       </div>

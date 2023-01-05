@@ -71,7 +71,10 @@ export default function Favorite() {
             >
               <Grid container spacing={2}>
                 <Grid item>
-                  <ButtonBase sx={{ width: 128, height: 128 }}>
+                  <ButtonBase
+                    sx={{ width: 128, height: 128 }}
+                    href={`/name/${country.name.common}`}
+                  >
                     <Img alt='complex' src={`${country.flags.svg}`} />
                   </ButtonBase>
                 </Grid>
@@ -82,26 +85,44 @@ export default function Favorite() {
                         gutterBottom
                         variant='subtitle1'
                         component='div'
+                        sx={{ fontFamily: 'nunito' }}
                       >
                         <b>Country : </b>
                         {country.name.common}
                       </Typography>
-                      <Typography variant='body2' gutterBottom>
+                      <Typography
+                        variant='body2'
+                        sx={{ fontFamily: 'nunito' }}
+                        gutterBottom
+                      >
                         <b>Capital : </b>
                         {country.capital}
                       </Typography>
-                      <Typography variant='body2' gutterBottom>
+                      <Typography
+                        variant='body2'
+                        sx={{ fontFamily: 'nunito' }}
+                        gutterBottom
+                      >
                         <b>Region : </b>
                         {country.region}
                       </Typography>
-                      <Typography variant='body2' gutterBottom>
+                      <Typography
+                        variant='body2'
+                        sx={{ fontFamily: 'nunito' }}
+                        gutterBottom
+                      >
                         <b>Languages : </b>
                         {Object.values(country.languages).map((l) => l + ', ')}
                       </Typography>
                     </Grid>
                     <Grid item>
                       <Typography
-                        sx={{ cursor: 'pointer' }}
+                        sx={{
+                          cursor: 'pointer',
+                          color: '#3d5fa3',
+                          fontFamily: 'nunito',
+                          fontWeight: '800',
+                        }}
                         variant='body2'
                         onClick={() => {
                           handleRemove(country.name.common);

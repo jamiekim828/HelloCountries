@@ -57,7 +57,7 @@ export default function CountryRow({
         {country.name.common}
       </TableCell>
       <TableCell align='center' sx={contents}>
-        {country.region}d
+        {country.region}
       </TableCell>
       <TableCell align='center' sx={contents}>
         {country.capital}

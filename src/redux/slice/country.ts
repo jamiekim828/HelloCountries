@@ -24,6 +24,22 @@ const countrySlice = createSlice({
         Object.assign({}, country, { like: false })
       );
     },
+    getAlphabeticalOrder: (state, action) => {
+      const sorted = action.payload
+        .map((country: CountryType) =>
+          Object.assign({}, country, { like: false })
+        )
+        .sort((a: CountryType, b: CountryType) => {
+          if (a.name.common < b.name.common) {
+            return -1;
+          }
+          if (a.name.common > b.name.common) {
+            return 1;
+          }
+          return 0;
+        });
+      state.countries = sorted;
+    },
     getCountry: (state, action) => {
       state.country = action.payload;
     },

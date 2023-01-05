@@ -82,6 +82,7 @@ export default function Country() {
         country.name.common.toLocaleLowerCase() ===
         favorite.name.common.toLocaleLowerCase()
     );
+
     if (hasDuplicate || like === true) {
       alert('This country is already added.');
     } else {

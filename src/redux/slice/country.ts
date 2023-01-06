@@ -23,15 +23,17 @@ const countrySlice = createSlice({
       state.countries = action.payload;
     },
     getAlphabeticalOrder: (state, action) => {
-      const sorted = action.payload.sort((a: CountryType, b: CountryType) => {
-        if (a.name.common < b.name.common) {
-          return -1;
+      const sorted = [...action.payload].sort(
+        (a: CountryType, b: CountryType) => {
+          if (a.name.common < b.name.common) {
+            return -1;
+          }
+          if (a.name.common > b.name.common) {
+            return 1;
+          }
+          return 0;
         }
-        if (a.name.common > b.name.common) {
-          return 1;
-        }
-        return 0;
-      });
+      );
       state.countries = sorted;
     },
     getCountry: (state, action) => {

@@ -200,7 +200,7 @@ export default function Favorite() {
       <div>
         <Snackbar
           open={open}
-          autoHideDuration={3000}
+          autoHideDuration={2500}
           onClose={handleClose}
           action={action}
         >

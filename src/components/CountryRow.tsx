@@ -16,7 +16,6 @@ type PropType = {
   country: CountryType;
   addFavoriteHandler: any;
   contents: object;
-
   favoriteCountries: CountryType[];
   handleClick: Function;
   handleFavoriteClose: Function;

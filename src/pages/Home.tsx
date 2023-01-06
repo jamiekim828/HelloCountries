@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 
 // MUI
 import ImageList from '@mui/material/ImageList';
@@ -25,7 +26,7 @@ export default function Home() {
       >
         {itemData.map((item) => (
           <ImageListItem
-            key={item.img}
+            key={uuidv4()}
             cols={item.cols || 1}
             rows={item.rows || 1}
           >
@@ -39,7 +40,7 @@ export default function Home() {
       </ImageList>
       <div>
         {' '}
-        <Link to='/countries'>
+        <Link to='/countries' style={{ textDecoration: 'none' }}>
           <Button
             variant='text'
             color='success'

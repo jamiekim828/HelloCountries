@@ -102,6 +102,7 @@ export default function CountryList() {
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
+    console.log(newPage, 'newPage');
   };
 
   const handleChangeRowsPerPage = (
@@ -110,6 +111,8 @@ export default function CountryList() {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
+  console.log(page, 'page', rows, 'rows');
 
   // MUI Snackbar
   const [open, setOpen] = useState<boolean>(false);
@@ -255,7 +258,7 @@ export default function CountryList() {
             component='div'
             count={rows.length}
             rowsPerPage={rowsPerPage}
-            page={page}
+            page={rows.length < 50 ? 0 : page}
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
           />
@@ -264,7 +267,7 @@ export default function CountryList() {
       <div>
         <Snackbar
           open={open}
-          autoHideDuration={3000}
+          autoHideDuration={2000}
           onClose={handleClose}
           action={action}
         >
@@ -280,7 +283,7 @@ export default function CountryList() {
       <div>
         <Snackbar
           open={openAlert}
-          autoHideDuration={3000}
+          autoHideDuration={2000}
           onClose={handleCloseAlert}
           action={actionAlert}
         >

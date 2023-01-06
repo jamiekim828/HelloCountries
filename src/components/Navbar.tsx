@@ -9,6 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import HomeIcon from '@mui/icons-material/Home';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import InfoIcon from '@mui/icons-material/Info';
+import ListIcon from '@mui/icons-material/List';
 
 //file
 import { AppDispatch, RootState } from '../redux/store';
@@ -66,11 +67,20 @@ export default function Navbar() {
             color='inherit'
             component={Link}
             to='/'
+          >
+            <HomeIcon />
+          </IconButton>
+          <IconButton
+            size='large'
+            aria-label='show 4 new mails'
+            color='inherit'
+            component={Link}
+            to='/countries'
             onClick={() => {
               handleHomeButton();
             }}
           >
-            <HomeIcon />
+            <ListIcon />
           </IconButton>
           <IconButton
             size='large'

@@ -203,7 +203,7 @@ export default function Country() {
               justifyContent: 'space-between',
             }}
           >
-            <Link to='/' style={{ textDecoration: 'none' }}>
+            <Link to='/countries' style={{ textDecoration: 'none' }}>
               <Button size='small' sx={{ fontFamily: 'nunito' }}>
                 Back
               </Button>

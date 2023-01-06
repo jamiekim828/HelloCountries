@@ -60,7 +60,7 @@ export default function CountryRow({
         {country.region}
       </TableCell>
       <TableCell align='center' sx={contents}>
-        {country.capital}
+        {country.capital ? country.capital : 'No information'}
       </TableCell>
       <TableCell align='right' sx={contents}>
         {country.population.toLocaleString('en-US')}

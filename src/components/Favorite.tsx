@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { AppDispatch, RootState } from '../redux/store';
+import { useNavigate } from 'react-router-dom';
+import React, { useState, Fragment } from 'react';
 
 // MUI
 import { styled } from '@mui/material/styles';
@@ -8,8 +9,15 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import ButtonBase from '@mui/material/ButtonBase';
 import Box from '@mui/material/Box';
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import MuiAlert, { AlertProps } from '@mui/material/Alert';
+
 // file
+import { AppDispatch, RootState } from '../redux/store';
 import { actions } from '../redux/slice/country';
+import image from '../assets/images/world.png';
 
 // MUI style
 const Img = styled('img')({
@@ -17,6 +25,14 @@ const Img = styled('img')({
   display: 'block',
   maxWidth: '100%',
   maxHeight: '100%',
+});
+
+// MUI Alert
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+  props,
+  ref
+) {
+  return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />;
 });
 
 export default function Favorite() {
@@ -30,6 +46,44 @@ export default function Favorite() {
     dispatch(actions.removeFavorite(name));
   };
 
+  // MUI Snackbar
+  const [open, setOpen] = useState<boolean>(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (
+    event: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  // MUI Snackbar action
+  const action = (
+    <Fragment>
+      <IconButton
+        size='small'
+        aria-label='close'
+        color='primary'
+        onClick={handleClose}
+      >
+        <CloseIcon fontSize='small' />
+      </IconButton>
+    </Fragment>
+  );
+
+  // flag on click -> to the country card
+  const navigate = useNavigate();
+  const goToCountry = (name: string) => {
+    navigate(`/name/${name}`);
+  };
+
   return (
     <div>
       {favorite.length === 0 ? (
@@ -39,19 +93,16 @@ export default function Favorite() {
             justifyContent: 'center',
             '& > :not(style)': {
               m: 1,
-              width: 600,
-              height: '60%',
+              width: 550,
               fontSize: '2rem',
-              marginTop: '12%',
-              marginBottom: '12%',
+              marginTop: '4%',
+              marginBottom: '4%',
             },
           }}
         >
-          <Paper
-            elevation={10}
-            sx={{ paddingTop: '10%', paddingBottom: '10%' }}
-          >
-            There are no favorite countries yet.
+          <Paper elevation={10} sx={{ paddingTop: '3%' }}>
+            There are no favorite countries.
+            <Img alt='complex' src={image} />
           </Paper>
         </Box>
       ) : (
@@ -72,10 +123,22 @@ export default function Favorite() {
               <Grid container spacing={2}>
                 <Grid item>
                   <ButtonBase
-                    sx={{ width: 128, height: 128 }}
-                    href={`/name/${country.name.common}`}
+                    sx={{
+                      width: 128,
+                      height: 128,
+                      display: 'flex',
+                      flexDirection: 'column',
+                    }}
                   >
-                    <Img alt='complex' src={`${country.flags.svg}`} />
+                    <Img
+                      alt='complex'
+                      src={`${country.flags.svg}`}
+                      sx={{ border: 1 }}
+                      onClick={() => {
+                        goToCountry(country.name.common);
+                      }}
+                    />
+                    Click for more information.
                   </ButtonBase>
                 </Grid>
                 <Grid item xs={12} sm container>
@@ -85,32 +148,27 @@ export default function Favorite() {
                         gutterBottom
                         variant='subtitle1'
                         component='div'
-                        sx={{ fontFamily: 'nunito' }}
+                        sx={{ fontFamily: 'nunito', fontSize: '20px' }}
                       >
                         <b>Country : </b>
                         {country.name.common}
                       </Typography>
                       <Typography
                         variant='body2'
-                        sx={{ fontFamily: 'nunito' }}
+                        sx={{
+                          fontFamily: 'nunito',
+                          fontSize: '17px',
+                          textAlign: 'left',
+                          marginLeft: '28%',
+                        }}
                         gutterBottom
                       >
                         <b>Capital : </b>
                         {country.capital}
-                      </Typography>
-                      <Typography
-                        variant='body2'
-                        sx={{ fontFamily: 'nunito' }}
-                        gutterBottom
-                      >
+                        <br />
                         <b>Region : </b>
                         {country.region}
-                      </Typography>
-                      <Typography
-                        variant='body2'
-                        sx={{ fontFamily: 'nunito' }}
-                        gutterBottom
-                      >
+                        <br />
                         <b>Languages : </b>
                         {Object.values(country.languages).map((l) => l + ', ')}
                       </Typography>
@@ -126,6 +184,7 @@ export default function Favorite() {
                         variant='body2'
                         onClick={() => {
                           handleRemove(country.name.common);
+                          handleClick();
                         }}
                       >
                         Remove
@@ -138,6 +197,22 @@ export default function Favorite() {
           </div>
         ))
       )}
+      <div>
+        <Snackbar
+          open={open}
+          autoHideDuration={3000}
+          onClose={handleClose}
+          action={action}
+        >
+          <Alert
+            onClose={handleClose}
+            severity='warning'
+            sx={{ width: '100%' }}
+          >
+            The country has removed from your favorite
+          </Alert>
+        </Snackbar>
+      </div>
     </div>
   );
 }

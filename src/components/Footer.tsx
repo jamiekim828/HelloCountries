@@ -25,7 +25,7 @@ export default function Footer() {
         </Link>
       </div>
       <div>Terms of Use . Privacy Policy</div>
-      <div>@2023 Soo</div>
+      <div>HELLO COUNTRIES @2023 Soo</div>
     </div>
   );
 }

@@ -114,6 +114,7 @@ export default function Country() {
             minWidth: 275,
             width: '400px',
             height: 'auto',
+            border: 1,
           }}
         >
           <CardMedia
@@ -121,6 +122,7 @@ export default function Country() {
             height='230'
             image={`${country?.flags.svg}`}
             alt={`${country?.name.common}`}
+            sx={{ borderBottom: 1 }}
           />
           <CardContent>
             <Typography

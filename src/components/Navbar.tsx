@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+
 // MUI
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -8,12 +9,21 @@ import IconButton from '@mui/material/IconButton';
 import HomeIcon from '@mui/icons-material/Home';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import InfoIcon from '@mui/icons-material/Info';
+
 //file
-import { RootState } from '../redux/store';
+import { AppDispatch, RootState } from '../redux/store';
+import { fetchCountyData } from '../redux/thunk/country';
 
 export default function Navbar() {
   // get favorite state
   const favorite = useSelector((state: RootState) => state.country.favorite);
+
+  // dispatch action
+  const dispatch = useDispatch<AppDispatch>();
+
+  const handleHomeButton = () => {
+    dispatch(fetchCountyData());
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -23,7 +33,7 @@ export default function Navbar() {
           md: 'flex',
           flexDirection: 'row',
           justifyContent: 'space-between',
-          bgcolor: '#3d5fa3',
+          bgcolor: 'black',
           alignItems: 'center',
           height: '60px',
         }}
@@ -56,6 +66,9 @@ export default function Navbar() {
             color='inherit'
             component={Link}
             to='/'
+            onClick={() => {
+              handleHomeButton();
+            }}
           >
             <HomeIcon />
           </IconButton>

@@ -31,7 +31,7 @@ export default function Search() {
   const switchHandler = () => {
     SetChecked(!checked);
   };
-  console.log(checked);
+
   // region selection handle change
   const handleChange = (event: SelectChangeEvent) => {
     setRegion(event.target.value);

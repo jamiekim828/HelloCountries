@@ -61,13 +61,14 @@ body {
 }
 
 .footer {
-  background-color: #3d5fa3;
+  background-color: black;
   color: #f7f7f7;
   font-size: 12px;
   position: absolute;
   bottom: 0;
   height: 80px;
   width: 100vw;
+  padding-top: 1%;
 }
 
 .link {

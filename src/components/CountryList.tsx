@@ -101,8 +101,14 @@ export default function CountryList() {
   const [rowsPerPage, setRowsPerPage] = useState(50);
 
   const handleChangePage = (event: unknown, newPage: number) => {
-    setPage(newPage);
-    console.log(newPage, 'newPage');
+    // setPage(newPage);
+
+    if (rows.length < rowsPerPage) {
+      const result = Math.ceil(rows.length / rowsPerPage);
+      setPage(result);
+    } else {
+      setPage(newPage);
+    }
   };
 
   const handleChangeRowsPerPage = (
@@ -178,7 +184,7 @@ export default function CountryList() {
   const contents = {
     fontFamily: 'nunito',
     fontWeight: '300',
-    fontSize: '23px',
+    fontSize: '20px',
   };
 
   // favorite button on click function
@@ -252,7 +258,7 @@ export default function CountryList() {
             </Table>
           </TableContainer>
           <TablePagination
-            rowsPerPageOptions={[50, 100]}
+            rowsPerPageOptions={[50, 100, 250]}
             component='div'
             count={rows.length}
             rowsPerPage={rowsPerPage}

@@ -4,10 +4,10 @@ import './App.css';
 import Navbar from './components/Navbar';
 import About from './pages/About';
 import FavoritePage from './pages/FavoritePage';
+import Home from './pages/Home';
 import Main from './pages/Main';
 import Footer from './components/Footer';
 import Country from './components/Country';
-import Home from './pages/Home';
 
 function App() {
   return (

@@ -83,7 +83,6 @@ export default function Favorite() {
   const navigate = useNavigate();
   const goToCountry = (name: string) => {
     navigate(`/name/${name}`);
-    console.log(name);
   };
 
   return (

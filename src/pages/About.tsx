@@ -65,7 +65,7 @@ export default function About() {
             <b>and sort by alphabetical order.</b>
             <br />
             <br />
-            <b>API is from REST COUNTRIES</b>
+            <b>Fetched data from REST COUNTRIES API.</b>
           </Typography>
           <a href='https://restcountries.com/' target='_blank' rel='noreferrer'>
             <Img alt='RESTCOUNTRIES' src={image} />

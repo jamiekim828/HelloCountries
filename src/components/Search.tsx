@@ -86,6 +86,9 @@ export default function Search() {
           variant='standard'
           value={userInput}
           onChange={handleUserInput}
+          sx={{
+            input: { color: 'grey', fontFamily: 'nunito', fontSize: '20px' },
+          }}
         />
       </Box>
       <div className='switch'>

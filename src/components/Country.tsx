@@ -154,7 +154,7 @@ export default function Country() {
               {country?.capital ? country?.capital : 'No capital'}
               <br />
               <b>Population : </b>
-              {country?.population}
+              {country?.population.toLocaleString('en-US')}
               <br />
               <b>Currency : </b>
               {country?.currencies

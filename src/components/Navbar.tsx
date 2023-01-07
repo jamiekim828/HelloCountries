@@ -22,88 +22,95 @@ export default function Navbar() {
   // dispatch action
   const dispatch = useDispatch<AppDispatch>();
 
-  const handleHomeButton = () => {
+  const handleMenuButton = () => {
     dispatch(fetchCountyData());
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar
-        position='static'
-        sx={{
-          md: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          bgcolor: 'black',
-          alignItems: 'center',
-          height: '60px',
-        }}
-      >
-        <Box
+    <div>
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar
+          position='static'
           sx={{
-            letterSpacing: 6,
-            fontSize: '30px',
-            fontWeight: '900',
-            textTransform: 'uppercase',
-            marginLeft: '3rem',
-            fontFamily: 'nunito',
+            md: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            bgcolor: 'black',
+            alignItems: 'center',
+            height: '60px',
           }}
         >
-          Hello countries
-        </Box>
-        <Box
-          sx={{
-            display: {
-              xs: 'none',
-              md: 'flex',
-              justifyContent: 'flex-end',
-              marginRight: '3rem',
-            },
-          }}
-        >
-          <IconButton
-            size='large'
-            aria-label='show 4 new mails'
-            color='inherit'
-            component={Link}
-            to='/'
-          >
-            <HomeIcon />
-          </IconButton>
-          <IconButton
-            size='large'
-            aria-label='show 4 new mails'
-            color='inherit'
-            component={Link}
-            to='/countries'
-            onClick={() => {
-              handleHomeButton();
+          <Box
+            sx={{
+              letterSpacing: 6,
+              fontSize: '30px',
+              fontWeight: '900',
+              textTransform: 'uppercase',
+              marginLeft: '3rem',
+              fontFamily: 'nunito',
             }}
           >
-            <ListIcon />
-          </IconButton>
-          <IconButton
-            size='large'
-            aria-label='show 17 new notifications'
-            color='inherit'
-            component={Link}
-            to='/favorite'
+            <Link to='/' style={{ textDecoration: 'none', color: 'white' }}>
+              {' '}
+              Hello countries
+            </Link>
+          </Box>
+
+          <Box
+            sx={{
+              display: {
+                xs: 'none',
+                md: 'flex',
+                justifyContent: 'flex-end',
+                marginRight: '3rem',
+              },
+            }}
           >
-            <Badge badgeContent={favorite.length} color='error'>
-              <FavoriteIcon />
-            </Badge>
-          </IconButton>
-          <IconButton
-            size='large'
-            aria-label='show 4 new mails'
-            color='inherit'
-            component={Link}
-            to='/about'
-          >
-            <InfoIcon />
-          </IconButton>
-        </Box>
-      </AppBar>
-    </Box>
+            <IconButton
+              size='large'
+              aria-label='show 4 new mails'
+              color='inherit'
+              component={Link}
+              to='/'
+            >
+              <HomeIcon />
+            </IconButton>
+            <IconButton
+              size='large'
+              aria-label='show 4 new mails'
+              color='inherit'
+              component={Link}
+              to='/countries'
+              onClick={() => {
+                handleMenuButton();
+                window.location.href = '/countries';
+              }}
+            >
+              <ListIcon />
+            </IconButton>
+            <IconButton
+              size='large'
+              aria-label='show 17 new notifications'
+              color='inherit'
+              component={Link}
+              to='/favorite'
+            >
+              <Badge badgeContent={favorite.length} color='error'>
+                <FavoriteIcon />
+              </Badge>
+            </IconButton>
+            <IconButton
+              size='large'
+              aria-label='show 4 new mails'
+              color='inherit'
+              component={Link}
+              to='/about'
+            >
+              <InfoIcon />
+            </IconButton>
+          </Box>
+        </AppBar>
+      </Box>
+    </div>
   );
 }

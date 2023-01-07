@@ -18,6 +18,7 @@ import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import { AppDispatch, RootState } from '../redux/store';
 import { actions } from '../redux/slice/country';
 import image from '../assets/images/world.png';
+import { fetchOneCountry } from '../redux/thunk/country';
 
 // MUI style
 const Img = styled('img')({
@@ -82,6 +83,7 @@ export default function Favorite() {
   const navigate = useNavigate();
   const goToCountry = (name: string) => {
     navigate(`/name/${name}`);
+    console.log(name);
   };
 
   return (
@@ -135,6 +137,7 @@ export default function Favorite() {
                       src={`${country.flags.svg}`}
                       sx={{ border: 1 }}
                       onClick={() => {
+                        dispatch(fetchOneCountry(country.name.common));
                         goToCountry(country.name.common);
                       }}
                     />

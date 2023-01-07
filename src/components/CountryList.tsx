@@ -112,8 +112,6 @@ export default function CountryList() {
     setPage(0);
   };
 
-  console.log(page, 'page', rows, 'rows');
-
   // MUI Snackbar
   const [open, setOpen] = useState<boolean>(false);
   const [openAlert, SetOpenAlert] = useState<boolean>(false);

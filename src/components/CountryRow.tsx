@@ -48,7 +48,7 @@ export default function CountryRow({
         component='th'
         align='center'
         scope='row'
-        sx={{ fontSize: '48px' }}
+        sx={{ fontSize: '27px' }}
       >
         {country.flag}
       </TableCell>

@@ -213,7 +213,7 @@ export default function CountryList() {
             margin: 'auto',
           }}
         >
-          <TableContainer sx={{ maxHeight: 450 }}>
+          <TableContainer sx={{ maxHeight: 470 }}>
             <Table stickyHeader aria-label='sticky table'>
               <TableHead>
                 <TableRow>

@@ -120,7 +120,7 @@ export default function Search() {
           )}
         </FormControl>
       </div>
-      <div>
+      <div className='region-option'>
         <FormControl sx={{ m: 1, minWidth: 120 }}>
           <InputLabel
             id='demo-simple-select-helper-label'

@@ -46,7 +46,7 @@ export default function Navbar() {
               fontSize: '30px',
               fontWeight: '900',
               textTransform: 'uppercase',
-              marginLeft: '3rem',
+              marginLeft: '7%',
               fontFamily: 'nunito',
             }}
           >
@@ -62,7 +62,7 @@ export default function Navbar() {
                 xs: 'none',
                 md: 'flex',
                 justifyContent: 'flex-end',
-                marginRight: '3rem',
+                marginRight: '7%',
               },
             }}
           >

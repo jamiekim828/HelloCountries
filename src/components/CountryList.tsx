@@ -248,19 +248,20 @@ export default function CountryList() {
                       handleFavoriteClose={handleFavoriteClose}
                     />
                   ))}
-                {rows
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row) => (
-                    <CountryRow
-                      key={row.name.common}
-                      country={row}
-                      addFavoriteHandler={addFavoriteHandler}
-                      contents={contents}
-                      favoriteCountries={favoriteCountries}
-                      handleClick={handleClick}
-                      handleFavoriteClose={handleFavoriteClose}
-                    />
-                  ))}
+                {rows.length >= rowsPerPage * (page + 1) &&
+                  rows
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((row) => (
+                      <CountryRow
+                        key={row.name.common}
+                        country={row}
+                        addFavoriteHandler={addFavoriteHandler}
+                        contents={contents}
+                        favoriteCountries={favoriteCountries}
+                        handleClick={handleClick}
+                        handleFavoriteClose={handleFavoriteClose}
+                      />
+                    ))}
               </TableBody>
             </Table>
           </TableContainer>

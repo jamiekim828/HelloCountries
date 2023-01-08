@@ -1,3 +1,7 @@
+# Demo
+
+[HELLO COUNTRIES](https://isa-6-front-end-project-jamiekim828.vercel.app/)
+
 # FRONT END PROJECT
 
 The front end project is to practice React with TypeScript and Redux. Completing all requirement, you will get 20 points/ 20 points. Good luck and HAVE FUN !!!

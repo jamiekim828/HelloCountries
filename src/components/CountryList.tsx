@@ -101,14 +101,7 @@ export default function CountryList() {
   const [rowsPerPage, setRowsPerPage] = useState(50);
 
   const handleChangePage = (event: unknown, newPage: number) => {
-    // setPage(newPage);
-
-    if (rows.length < rowsPerPage) {
-      const result = Math.ceil(rows.length / rowsPerPage);
-      setPage(result);
-    } else {
-      setPage(newPage);
-    }
+    setPage(newPage);
   };
 
   const handleChangeRowsPerPage = (
@@ -243,6 +236,18 @@ export default function CountryList() {
                 </TableRow>
               </TableHead>
               <TableBody>
+                {rows.length < rowsPerPage * (page + 1) &&
+                  rows.map((row) => (
+                    <CountryRow
+                      key={row.name.common}
+                      country={row}
+                      addFavoriteHandler={addFavoriteHandler}
+                      contents={contents}
+                      favoriteCountries={favoriteCountries}
+                      handleClick={handleClick}
+                      handleFavoriteClose={handleFavoriteClose}
+                    />
+                  ))}
                 {rows
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row) => (
@@ -259,15 +264,19 @@ export default function CountryList() {
               </TableBody>
             </Table>
           </TableContainer>
-          <TablePagination
-            rowsPerPageOptions={[50, 100, 250]}
-            component='div'
-            count={rows.length}
-            rowsPerPage={rowsPerPage}
-            page={rows.length < 50 ? 0 : page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
+          {rows.length < rowsPerPage * (page + 1) ? (
+            <></>
+          ) : (
+            <TablePagination
+              rowsPerPageOptions={[50, 100, 250]}
+              component='div'
+              count={rows.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+          )}
         </Paper>
       )}
       <div>

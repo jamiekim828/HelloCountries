@@ -204,7 +204,9 @@ export default function CountryList() {
   return (
     <div>
       {loading ? (
-        <Loading />
+        <div>
+          <Loading />
+        </div>
       ) : (
         <Paper
           sx={{

@@ -26,6 +26,7 @@ export default function Search() {
   const [region, setRegion] = useState<string>('');
   const [userInput, setUserInput] = useState<string>('');
   const [checked, SetChecked] = useState<boolean>(false);
+  const [result, setResult] = useState<boolean>(true);
 
   // alphabetical order switch
   const switchHandler = () => {
@@ -44,7 +45,15 @@ export default function Search() {
       country.name.common.toLocaleLowerCase().includes(name.toLocaleLowerCase())
     );
     // filtered country list
-    dispatch(actions.getCountryList(result));
+    // dispatch(actions.getCountryList(result));
+
+    if (result.length === 0) {
+      // userInput cannot be found
+      setResult(false);
+    } else {
+      // filtered country list
+      dispatch(actions.getCountryList(result));
+    }
   };
 
   // search handle change
@@ -76,6 +85,7 @@ export default function Search() {
         sx={{
           '& > :not(style)': { m: 1, width: '25ch' },
           marginBottom: '10px',
+          display: 'flex',
         }}
         noValidate
         autoComplete='off'
@@ -90,6 +100,7 @@ export default function Search() {
             input: { color: 'grey', fontFamily: 'nunito', fontSize: '20px' },
           }}
         />
+        {userInput !== '' && result === false && <div>No result</div>}
       </Box>
       <div className='switch'>
         <FormControl component='fieldset'>

@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { Fragment } from 'react';
 
@@ -19,6 +19,7 @@ import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import { AppDispatch, RootState } from '../redux/store';
 import { actions } from '../redux/slice/country';
 import { CountryType } from '../types/type';
+import { fetchOneCountry } from '../redux/thunk/country';
 
 // MUI Alert
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
@@ -100,9 +101,12 @@ export default function Country() {
   };
 
   // border name on click
+  const navigate = useNavigate();
   const neighbor = (border: string) => {
-    const countryName = countryList.find((c) => c.cca3 === border)?.name.common;
-    console.log(countryName);
+    const countryInfo = countryList.find((c) => c.cca3 === border);
+    const countryName = countryInfo?.name.common;
+    dispatch(fetchOneCountry(countryName));
+    navigate(`/name/${countryName}`);
   };
 
   return (

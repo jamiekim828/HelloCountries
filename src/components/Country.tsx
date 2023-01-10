@@ -31,12 +31,12 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 
 export default function Country() {
   // select state
-  const countryList = useSelector(
-    (state: RootState) => state.country.countries
-  );
   const countryInfo = useSelector((state: RootState) => state.country.country);
   const favoriteCountries = useSelector(
     (state: RootState) => state.country.favorite
+  );
+  const allCountries = useSelector(
+    (state: RootState) => state.country.allCountries
   );
   // set state
   const [loading, setLoading] = useState<boolean>(true);
@@ -103,7 +103,7 @@ export default function Country() {
   // border name on click
   const navigate = useNavigate();
   const neighbor = (border: string) => {
-    const countryInfo = countryList.find((c) => c.cca3 === border);
+    const countryInfo = allCountries.find((c) => c.cca3 === border);
     const countryName = countryInfo?.name.common;
     dispatch(fetchOneCountry(countryName));
     navigate(`/name/${countryName}`);

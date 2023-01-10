@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { CountryType } from '../../types/type';
 
 type InitialStateType = {
+  allCountries: CountryType[];
   countries: CountryType[];
   country: CountryType[];
   favorite: CountryType[];
@@ -9,6 +10,7 @@ type InitialStateType = {
 };
 
 const initialState: InitialStateType = {
+  allCountries: [],
   countries: [],
   country: [],
   favorite: [],
@@ -21,6 +23,9 @@ const countrySlice = createSlice({
   reducers: {
     getCountryList: (state, action) => {
       state.countries = action.payload;
+    },
+    getCountryListDefault: (state, action) => {
+      state.allCountries = action.payload;
     },
     getAlphabeticalOrder: (state, action) => {
       const sorted = [...action.payload].sort(

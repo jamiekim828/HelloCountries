@@ -14,6 +14,7 @@ export function fetchCountyData() {
     }
 
     dispatch(actions.getCountryList(countryData));
+    dispatch(actions.getCountryListDefault(countryData));
   };
 }
 

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 // MUI
 import AppBar from '@mui/material/AppBar';
@@ -12,19 +12,11 @@ import InfoIcon from '@mui/icons-material/Info';
 import ListIcon from '@mui/icons-material/List';
 
 //file
-import { AppDispatch, RootState } from '../redux/store';
-import { fetchCountyData } from '../redux/thunk/country';
+import { RootState } from '../redux/store';
 
 export default function Navbar() {
   // get favorite state
   const favorite = useSelector((state: RootState) => state.country.favorite);
-
-  // dispatch action
-  const dispatch = useDispatch<AppDispatch>();
-
-  const handleMenuButton = () => {
-    dispatch(fetchCountyData());
-  };
 
   return (
     <div>
@@ -81,10 +73,6 @@ export default function Navbar() {
               color='inherit'
               component={Link}
               to='/countries'
-              onClick={() => {
-                handleMenuButton();
-                window.location.href = '/countries';
-              }}
             >
               <ListIcon />
             </IconButton>

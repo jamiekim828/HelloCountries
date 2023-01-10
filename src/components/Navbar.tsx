@@ -54,7 +54,6 @@ export default function Navbar() {
                 xs: 'none',
                 md: 'flex',
                 justifyContent: 'flex-end',
-                marginRight: '7%',
               },
             }}
           >

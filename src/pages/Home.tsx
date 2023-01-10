@@ -5,6 +5,8 @@ import { v4 as uuidv4 } from 'uuid';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import Button from '@mui/material/Button';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { yellow } from '@mui/material/colors';
 
 function srcset(image: string, size: number, rows = 1, cols = 1) {
   return {
@@ -16,10 +18,15 @@ function srcset(image: string, size: number, rows = 1, cols = 1) {
 }
 
 export default function Home() {
+  const theme = createTheme({
+    palette: {
+      primary: yellow, // works
+    },
+  });
   return (
     <div className='home'>
       <ImageList
-        sx={{ width: 500, height: 450 }}
+        sx={{ width: '80%', height: 450 }}
         variant='quilted'
         cols={4}
         rowHeight={121}
@@ -41,18 +48,28 @@ export default function Home() {
       <div>
         {' '}
         <Link to='/countries' style={{ textDecoration: 'none' }}>
-          <Button
-            variant='text'
-            color='success'
-            sx={{
-              color: 'black',
-              fontFamily: 'nunito',
-              fontSize: '15px',
-              fontWeight: '600',
-            }}
-          >
-            Let's explore the countries !
-          </Button>
+          <ThemeProvider theme={theme}>
+            <Button
+              variant='contained'
+              color='primary'
+              sx={{
+                color: 'black',
+                fontFamily: 'nunito',
+                fontSize: '20px',
+                fontWeight: '900',
+                height: '50px',
+                marginTop: '7%',
+                cursor: 'pointer',
+                borderRadius: '50px',
+                ':hover': {
+                  backgroundColor: 'yellow',
+                  boxShadow: 20,
+                },
+              }}
+            >
+              Let's explore the countries !
+            </Button>
+          </ThemeProvider>
         </Link>
       </div>
     </div>

@@ -12,9 +12,9 @@ import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
 // file
-import { fetchByRegion, fetchCountyData } from '../redux/thunk/country';
-import { AppDispatch, RootState } from '../redux/store';
-import { actions } from '../redux/slice/country';
+import { fetchByRegion, fetchCountyData } from '../../redux/thunk/country';
+import { AppDispatch, RootState } from '../../redux/store';
+import { actions } from '../../redux/slice/country';
 
 export default function Search() {
   // get state

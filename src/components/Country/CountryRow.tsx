@@ -7,9 +7,9 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 // file
-import { CountryType } from '../types/type';
-import { fetchOneCountry } from '../redux/thunk/country';
-import { AppDispatch } from '../redux/store';
+import { CountryType } from '../../types/type';
+import { fetchOneCountry } from '../../redux/thunk/country';
+import { AppDispatch } from '../../redux/store';
 
 // prop type
 type PropType = {

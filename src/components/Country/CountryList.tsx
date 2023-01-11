@@ -17,12 +17,12 @@ import CloseIcon from '@mui/icons-material/Close';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 
 // file
-import { AppDispatch, RootState } from '../redux/store';
-import { fetchCountyData } from '../redux/thunk/country';
-import { actions } from '../redux/slice/country';
-import { CountryType } from '../types/type';
+import { AppDispatch, RootState } from '../../redux/store';
+import { fetchCountyData } from '../../redux/thunk/country';
+import { actions } from '../../redux/slice/country';
+import { CountryType } from '../../types/type';
 import CountryRow from './CountryRow';
-import Loading from './Loading';
+import Loading from '../Loading/Loading';
 
 // MUI table function
 function createData(

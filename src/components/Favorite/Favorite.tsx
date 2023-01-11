@@ -15,10 +15,10 @@ import CloseIcon from '@mui/icons-material/Close';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 
 // file
-import { AppDispatch, RootState } from '../redux/store';
-import { actions } from '../redux/slice/country';
-import image from '../assets/images/world.png';
-import { fetchOneCountry } from '../redux/thunk/country';
+import { AppDispatch, RootState } from '../../redux/store';
+import { actions } from '../../redux/slice/country';
+import image from '../../assets/images/world.png';
+import { fetchOneCountry } from '../../redux/thunk/country';
 
 // MUI style
 const Img = styled('img')({

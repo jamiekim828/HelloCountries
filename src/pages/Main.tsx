@@ -1,5 +1,5 @@
-import Search from '../components/Search';
-import CountryList from '../components/CountryList';
+import Search from '../components/Search/Search';
+import CountryList from '../components/Country/CountryList';
 
 export default function Main() {
   return (

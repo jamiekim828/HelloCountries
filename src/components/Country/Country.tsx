@@ -16,10 +16,10 @@ import CloseIcon from '@mui/icons-material/Close';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 
 // file
-import { AppDispatch, RootState } from '../redux/store';
-import { actions } from '../redux/slice/country';
-import { CountryType } from '../types/type';
-import { fetchOneCountry } from '../redux/thunk/country';
+import { AppDispatch, RootState } from '../../redux/store';
+import { actions } from '../../redux/slice/country';
+import { CountryType } from '../../types/type';
+import { fetchOneCountry } from '../../redux/thunk/country';
 
 // MUI Alert
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(

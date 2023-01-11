@@ -12,7 +12,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import ListIcon from '@mui/icons-material/List';
 
 //file
-import { RootState } from '../redux/store';
+import { RootState } from '../../redux/store';
 
 export default function Navbar() {
   // get favorite state

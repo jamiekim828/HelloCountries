@@ -10,11 +10,16 @@ import HomeIcon from '@mui/icons-material/Home';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import InfoIcon from '@mui/icons-material/Info';
 import ListIcon from '@mui/icons-material/List';
+import Brightness6Icon from '@mui/icons-material/Brightness6';
 
 //file
 import { RootState } from '../../redux/store';
 
-export default function Navbar() {
+type PropType = {
+  dark: boolean;
+  handleDarkMode: Function;
+};
+export default function Navbar({ dark, handleDarkMode }: PropType) {
   // get favorite state
   const favorite = useSelector((state: RootState) => state.country.favorite);
 
@@ -54,6 +59,7 @@ export default function Navbar() {
                 xs: 'none',
                 md: 'flex',
                 justifyContent: 'flex-end',
+                paddingRight: '3%',
               },
             }}
           >
@@ -94,6 +100,14 @@ export default function Navbar() {
               to='/about'
             >
               <InfoIcon />
+            </IconButton>
+            <IconButton
+              size='large'
+              aria-label='show 4 new mails'
+              color='inherit'
+              onClick={() => handleDarkMode()}
+            >
+              <Brightness6Icon />
             </IconButton>
           </Box>
         </AppBar>

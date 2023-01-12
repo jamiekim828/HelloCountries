@@ -172,7 +172,15 @@ export default function Country() {
               <br />
               <b>Languages : </b>
               {country?.languages
-                ? Object.values(country?.languages)?.map((l) => l + ', ')
+                ? Object.values(country?.languages)?.map(
+                    (l, index) =>
+                      l +
+                      `${
+                        index === Object.values(country.languages).length - 1
+                          ? ' '
+                          : ', '
+                      }`
+                  )
                 : 'No information'}
               <br />
               <b>Border : </b>

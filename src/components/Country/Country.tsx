@@ -14,6 +14,7 @@ import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
+import Popover from '@mui/material/Popover';
 
 // file
 import { AppDispatch, RootState } from '../../redux/store';
@@ -93,12 +94,23 @@ export default function Country() {
         favorite.name.common.toLocaleLowerCase()
     );
 
-    if (hasDuplicate) {
-      alert('This country is already added.');
-    } else {
+    if (!hasDuplicate) {
       dispatch(actions.addFavorite(favorite));
     }
   };
+
+  // MUI Popover
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+
+  const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+
+  const popoverOpen = Boolean(anchorEl);
 
   // border name on click
   const navigate = useNavigate();
@@ -220,17 +232,53 @@ export default function Country() {
                 Back
               </Button>
             </Link>
-
-            <Button
-              size='small'
-              sx={{ fontFamily: 'nunito' }}
-              onClick={() => {
-                handleFavoriteBtn(country);
-                handleClick();
-              }}
-            >
-              Add Favorite
-            </Button>
+            <div>
+              <Button
+                size='small'
+                sx={{ fontFamily: 'nunito' }}
+                onClick={() => {
+                  handleFavoriteBtn(country);
+                  handleClick();
+                }}
+                aria-owns={popoverOpen ? 'mouse-over-popover' : undefined}
+                aria-haspopup='true'
+                onMouseEnter={(e) => {
+                  const hasDuplicate = favoriteCountries.some(
+                    (c) =>
+                      c.name.common.toLocaleLowerCase() ===
+                      country.name.common.toLocaleLowerCase()
+                  );
+                  if (hasDuplicate) {
+                    handlePopoverOpen(e);
+                  }
+                }}
+                onMouseLeave={handlePopoverClose}
+              >
+                Add Favorite
+              </Button>
+              <Popover
+                id='mouse-over-popover'
+                sx={{
+                  pointerEvents: 'none',
+                }}
+                open={popoverOpen}
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
+                onClose={handlePopoverClose}
+                disableRestoreFocus
+              >
+                <Typography sx={{ p: 1 }}>
+                  Already added to the favorite.
+                </Typography>
+              </Popover>
+            </div>
           </CardActions>
         </Card>
       )}

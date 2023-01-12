@@ -27,8 +27,8 @@ export default function About() {
             width: 600,
             height: '60%',
             fontSize: '2rem',
-            marginTop: '10%',
-            marginBottom: '10%',
+            marginTop: '4.7%',
+            marginBottom: '4.7%',
           },
         }}
       >

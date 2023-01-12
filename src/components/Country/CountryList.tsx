@@ -61,7 +61,12 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />;
 });
 
-export default function CountryList() {
+// prop type
+type PropType = {
+  dark: boolean;
+};
+
+export default function CountryList({ dark }: PropType) {
   // select store
   const countryList = useSelector(
     (state: RootState) => state.country.countries
@@ -173,7 +178,7 @@ export default function CountryList() {
   );
 
   // MUI style
-  const style = { fontFamily: 'nunito', fontWeight: '900', fontSize: '18px' };
+  const style = { fontFamily: 'nunito', fontWeight: '900', fontSize: '20px' };
   const contents = {
     fontFamily: 'nunito',
     fontWeight: '300',
@@ -246,6 +251,7 @@ export default function CountryList() {
                       favoriteCountries={favoriteCountries}
                       handleClick={handleClick}
                       handleFavoriteClose={handleFavoriteClose}
+                      dark={dark}
                     />
                   ))}
                 {rows.length >= rowsPerPage * (page + 1) &&
@@ -260,6 +266,7 @@ export default function CountryList() {
                         favoriteCountries={favoriteCountries}
                         handleClick={handleClick}
                         handleFavoriteClose={handleFavoriteClose}
+                        dark={dark}
                       />
                     ))}
               </TableBody>
@@ -283,7 +290,7 @@ export default function CountryList() {
       <div>
         <Snackbar
           open={open}
-          autoHideDuration={2000}
+          autoHideDuration={1600}
           onClose={handleClose}
           action={action}
         >
@@ -299,7 +306,7 @@ export default function CountryList() {
       <div>
         <Snackbar
           open={openAlert}
-          autoHideDuration={2000}
+          autoHideDuration={1600}
           onClose={handleCloseAlert}
           action={actionAlert}
         >

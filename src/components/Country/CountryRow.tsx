@@ -19,16 +19,17 @@ type PropType = {
   favoriteCountries: CountryType[];
   handleClick: Function;
   handleFavoriteClose: Function;
+  dark: boolean;
 };
 
 export default function CountryRow({
   country,
   addFavoriteHandler,
   contents,
-
   favoriteCountries,
   handleClick,
   handleFavoriteClose,
+  dark,
 }: PropType) {
   // action dispatch
   const dispatch = useDispatch<AppDispatch>();
@@ -48,7 +49,7 @@ export default function CountryRow({
         component='th'
         align='center'
         scope='row'
-        sx={{ fontSize: '27px' }}
+        sx={{ fontSize: '37px' }}
       >
         {country.flag}
       </TableCell>
@@ -67,7 +68,8 @@ export default function CountryRow({
       <TableCell align='center' sx={contents}>
         <Link to={`/name/${country.name.common}`}>
           <MoreHorizIcon
-            sx={{ cursor: 'pointer' }}
+            color={dark ? 'action' : 'primary'}
+            sx={{ cursor: 'pointer', fontSize: '45px' }}
             onClick={() => {
               dispatch(fetchOneCountry(country.name.common));
             }}
@@ -77,7 +79,7 @@ export default function CountryRow({
       <TableCell align='center' sx={contents}>
         {!favorite ? (
           <FavoriteBorderIcon
-            sx={{ cursor: 'pointer' }}
+            sx={{ cursor: 'pointer', fontSize: '37px' }}
             color='error'
             onClick={() => {
               addFavoriteHandler(country);
@@ -86,7 +88,7 @@ export default function CountryRow({
           />
         ) : (
           <FavoriteIcon
-            sx={{ cursor: 'pointer' }}
+            sx={{ cursor: 'pointer', fontSize: '36px' }}
             color='error'
             onClick={() => {
               addFavoriteHandler(country);

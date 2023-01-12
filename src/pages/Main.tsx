@@ -1,11 +1,15 @@
 import Search from '../components/Search/Search';
 import CountryList from '../components/Country/CountryList';
 
-export default function Main() {
+type PropType = {
+  dark: boolean;
+};
+
+export default function Main({ dark }: PropType) {
   return (
     <div className='container'>
       <Search />
-      <CountryList />
+      <CountryList dark={dark} />
     </div>
   );
 }

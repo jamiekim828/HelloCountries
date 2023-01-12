@@ -228,14 +228,17 @@ export default function Country() {
             }}
           >
             <Link to='/countries' style={{ textDecoration: 'none' }}>
-              <Button size='small' sx={{ fontFamily: 'nunito' }}>
+              <Button
+                size='large'
+                sx={{ fontFamily: 'nunito', fontWeight: '800' }}
+              >
                 Back
               </Button>
             </Link>
             <div>
               <Button
-                size='small'
-                sx={{ fontFamily: 'nunito' }}
+                size='large'
+                sx={{ fontFamily: 'nunito', fontWeight: '800' }}
                 onClick={() => {
                   handleFavoriteBtn(country);
                   handleClick();

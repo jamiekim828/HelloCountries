@@ -96,8 +96,8 @@ export default function Favorite() {
               m: 1,
               width: 550,
               fontSize: '2rem',
-              marginTop: '4%',
-              marginBottom: '4%',
+              marginTop: '2%',
+              marginBottom: '2%',
             },
           }}
         >
@@ -198,7 +198,7 @@ export default function Favorite() {
                           handleClick();
                         }}
                       >
-                        Remove
+                        REMOVE
                       </Typography>
                     </Grid>
                   </Grid>
@@ -211,7 +211,7 @@ export default function Favorite() {
       <div>
         <Snackbar
           open={open}
-          autoHideDuration={2500}
+          autoHideDuration={1600}
           onClose={handleClose}
           action={action}
         >

@@ -40,7 +40,7 @@ function App() {
         <Navbar dark={dark} handleDarkMode={handleDarkMode} />
         <Routes>
           <Route path='/' element={<Home />}></Route>
-          <Route path='/countries' element={<Main />}></Route>
+          <Route path='/countries' element={<Main dark={dark} />}></Route>
           <Route path='/name/:name' element={<Country />}></Route>
           <Route path='/favorite' element={<FavoritePage />}></Route>
           <Route path='/about' element={<About />}></Route>

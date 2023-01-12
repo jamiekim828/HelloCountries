@@ -172,7 +172,16 @@ export default function Favorite() {
                         {country.region}
                         <br />
                         <b>Languages : </b>
-                        {Object.values(country.languages).map((l) => l + ', ')}
+                        {Object.values(country.languages).map(
+                          (l, index) =>
+                            l +
+                            `${
+                              index ===
+                              Object.values(country.languages).length - 1
+                                ? ' '
+                                : ', '
+                            }`
+                        )}
                       </Typography>
                     </Grid>
                     <Grid item>

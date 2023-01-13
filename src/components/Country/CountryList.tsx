@@ -201,7 +201,7 @@ export default function CountryList({ dark }: PropType) {
 
   return (
     <div>
-      {loading ? (
+      {loading === true ? (
         <div>
           <Loading />
         </div>

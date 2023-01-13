@@ -78,6 +78,16 @@ export default function Search() {
     }
   }, [dispatch, userInput]);
 
+  // for region option
+  const regionArray = [
+    'Africa',
+    'Americas',
+    'Antarctic',
+    'Asia',
+    'Europe',
+    'Oceania',
+  ];
+
   return (
     <div className='search-div'>
       <Box
@@ -155,54 +165,17 @@ export default function Search() {
             >
               <em>All</em>
             </MenuItem>
-            <MenuItem
-              sx={{ fontFamily: 'nunito' }}
-              onClick={() => {
-                dispatch(fetchByRegion('africa'));
-              }}
-            >
-              Africa
-            </MenuItem>
-            <MenuItem
-              sx={{ fontFamily: 'nunito' }}
-              onClick={() => {
-                dispatch(fetchByRegion('americas'));
-              }}
-            >
-              Americas
-            </MenuItem>
-            <MenuItem
-              sx={{ fontFamily: 'nunito' }}
-              onClick={() => {
-                dispatch(fetchByRegion('antarctic'));
-              }}
-            >
-              Antarctic
-            </MenuItem>
-            <MenuItem
-              sx={{ fontFamily: 'nunito' }}
-              onClick={() => {
-                dispatch(fetchByRegion('asia'));
-              }}
-            >
-              Asia
-            </MenuItem>
-            <MenuItem
-              sx={{ fontFamily: 'nunito' }}
-              onClick={() => {
-                dispatch(fetchByRegion('europe'));
-              }}
-            >
-              Europe
-            </MenuItem>
-            <MenuItem
-              sx={{ fontFamily: 'nunito' }}
-              onClick={() => {
-                dispatch(fetchByRegion('oceania'));
-              }}
-            >
-              Oceania
-            </MenuItem>
+            {regionArray.map((regionName) => (
+              <MenuItem
+                sx={{ fontFamily: 'nunito' }}
+                onClick={() => {
+                  dispatch(fetchByRegion(regionName));
+                }}
+                key={regionName}
+              >
+                {regionName}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
       </div>

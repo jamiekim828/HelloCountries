@@ -239,22 +239,21 @@ export default function Country() {
               <Button
                 size='large'
                 sx={{ fontFamily: 'nunito', fontWeight: '800' }}
-                onClick={() => {
+                onClick={(e) => {
                   handleFavoriteBtn(country);
-                  handleClick();
-                }}
-                aria-owns={popoverOpen ? 'mouse-over-popover' : undefined}
-                aria-haspopup='true'
-                onMouseEnter={(e) => {
                   const hasDuplicate = favoriteCountries.some(
                     (c) =>
                       c.name.common.toLocaleLowerCase() ===
                       country.name.common.toLocaleLowerCase()
                   );
-                  if (hasDuplicate) {
+                  if (!hasDuplicate) {
+                    handleClick();
+                  } else {
                     handlePopoverOpen(e);
                   }
                 }}
+                aria-owns={popoverOpen ? 'mouse-over-popover' : undefined}
+                aria-haspopup='true'
                 onMouseLeave={handlePopoverClose}
               >
                 Add Favorite

@@ -287,7 +287,7 @@ export default function Country() {
       <div>
         <Snackbar
           open={open}
-          autoHideDuration={3000}
+          autoHideDuration={1100}
           onClose={handleClose}
           action={action}
         >

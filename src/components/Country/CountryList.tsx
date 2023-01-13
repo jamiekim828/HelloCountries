@@ -290,7 +290,7 @@ export default function CountryList({ dark }: PropType) {
       <div>
         <Snackbar
           open={open}
-          autoHideDuration={1600}
+          autoHideDuration={1300}
           onClose={handleClose}
           action={action}
         >
@@ -306,7 +306,7 @@ export default function CountryList({ dark }: PropType) {
       <div>
         <Snackbar
           open={openAlert}
-          autoHideDuration={1600}
+          autoHideDuration={1300}
           onClose={handleCloseAlert}
           action={actionAlert}
         >
